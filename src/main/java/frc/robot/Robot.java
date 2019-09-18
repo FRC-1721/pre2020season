@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
 
-  Command m_autonomousCommand;
+  Command ros_autonomous;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    ros_autonomous = m_chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -89,9 +89,9 @@ public class Robot extends TimedRobot {
      * autonomousCommand = new ExampleCommand(); break; }
      */
 
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+    // schedule the autonomous command
+    if (ros_autonomous != null) {
+      ros_autonomous.start();
     }
   }
 
@@ -109,8 +109,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (ros_autonomous != null) {
+      ros_autonomous.cancel();
     }
   }
 
