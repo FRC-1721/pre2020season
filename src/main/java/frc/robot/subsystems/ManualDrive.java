@@ -16,13 +16,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class ExampleSubsystem extends Subsystem {
+public class ManualDrive extends Subsystem {
   public static void Manual (TalonSRX starboard, TalonSRX port, Joystick driverStick)
   {
+    Double yaw = driverStick.getRawAxis(2);
+    
     
     Double thro = driverStick.getRawAxis(1);
-    starboard.set(ControlMode.PercentOutput, thro);
-    port.set(ControlMode.PercentOutput, thro * -1); // negative 1 because motor is mounted 180 degrees compared to the other.
+    starboard.set(ControlMode.PercentOutput, thro - yaw);
+    port.set(ControlMode.PercentOutput, (thro * -1) - yaw); // negative 1 because motor is mounted 180 degrees compared to the other.
+
+
   }
 
   @Override
