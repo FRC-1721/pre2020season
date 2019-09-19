@@ -7,14 +7,23 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class ExampleSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  public static void Manual (TalonSRX starboard, TalonSRX port, Joystick driverStick)
+  {
+    
+    Double thro = driverStick.getRawAxis(1);
+    starboard.set(ControlMode.PercentOutput, thro);
+    port.set(ControlMode.PercentOutput, thro * -1); // negative 1 because motor is mounted 180 degrees compared to the other.
+  }
 
   @Override
   public void initDefaultCommand() {
