@@ -12,21 +12,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
- * This subsystem drives a tank style robot
+ * This subsystem drives a tank style robot.
  */
 public class Drivetrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-
   /**
-   * This function drives the robot using operator imput
+   * This function uses manual control from a joystick.
    */
   public static void flyByWireA(TalonSRX starboard, TalonSRX port, Joystick DriverJoystick){
 
-    double thro = DriverJoystick.getRawAxis(1); // Populate thro with axis 1
-    double yaw = DriverJoystick.getRawAxis(2); // Populate with with axis 2
+    double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
+    double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
     starboard.set(ControlMode.PercentOutput, (-1 * thro) - yaw);  // From the inverse of thro, subtract yaw
     port.set(ControlMode.PercentOutput, thro - yaw);  // subtract yaw from thro
