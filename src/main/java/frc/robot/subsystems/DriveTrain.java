@@ -19,11 +19,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
   public static void FlyByWire (TalonSRX starboard, TalonSRX port, Joystick driverstick)
   {
-    // Gets the position of the joystick and moves the motors accordingly.
+    // Gets the position of the (forward or back) joystick and moves the motors accordingly.
     Double thro = driverstick.getRawAxis(1);
     starboard.set(ControlMode.PercentOutput, thro);
     port.set(ControlMode.PercentOutput, thro * -1);
+
+    Double turn = driverstick.getRawAxis(2);
+    starboard.set(ControlMode.PercentOutput, turn);
+    port.set(ControlMode.PercentOutput, turn);
   }
+  
 
 
   @Override
