@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -19,9 +20,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
   public static void Driver_Control(TalonSRX Starboard, TalonSRX Port, Joystick Driverstick)
   {
-    Double thro = Driverstick.getRawAxis(1); //populates "thro" as the angle of the driverstick
-    Starboard.set(ControlMode.PercentOutput, thro);
-    Port.set(ControlMode.PercentOutput, thro * -1); //
+    Double thro = Driverstick.getRawAxis(RobotMap.driverstickThroAxis); //populates "thro" as the angle of the driverstick
+    Double yaw = Driverstick.getRawAxis(RobotMap.driverstickYawAxis); //populates "yow" as the angle of the driverstick again
+    Starboard.set(ControlMode.PercentOutput, thro - yaw);
+    Port.set(ControlMode.PercentOutput, (thro * -1) - yaw); 
   }
   
 
