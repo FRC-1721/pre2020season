@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotMap {
   // CAN Addresses
-  public static int starboardAddres = 2; // Last Configured: Never
+  public static int starboardAddress = 2; // Last Configured: Never
   public static int portAddress = 1;  // Last Configured: Never
 
   // Driver Stick Information
