@@ -17,12 +17,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Add your docs here. make it move forwards and backwords 
  */
 public class Drivetrain extends Subsystem {
-public static void JoyStickLever (TalonSRX StarBoard, TalonSRX port, Joystick JoyStickLever) 
+public static void manualcontrol (TalonSRX StarBoard, TalonSRX port, Joystick JoyStickLever) 
 {
-  Double yaw = JoyStickLever.getRawAxis(2);
   Double thro = JoyStickLever.getRawAxis(1);
-  StarBoard.set(ControlMode.PercentOutput, thro - yaw);
+  Double yaw = JoyStickLever.getRawAxis(2);
   port.set(ControlMode.PercentOutput, (thro * -1) - yaw); 
+  StarBoard.set(ControlMode.PercentOutput, thro - yaw);
 }
 
 
