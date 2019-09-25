@@ -27,9 +27,14 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
+  // Subsystems
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Drivetrain drivetrain = new Drivetrain();
+
+  // OI
   public static OI m_oi;
 
+  // Commands
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -39,10 +44,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
+    // Define SmartDashboard widgets
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    //chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    // Define OI
+    m_oi = new OI();
 
     // Define Joysticks
     RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
