@@ -139,8 +139,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
-    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick); // Pass robotmap variables to the drivetrain manual drive method
+    
+    // Pass robotmap variables to the drivetrain manual drive method
+    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
   }
 
   /**
