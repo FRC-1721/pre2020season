@@ -30,6 +30,11 @@ public class Drivetrain extends Subsystem {
     port.set(ControlMode.PercentOutput, thro - yaw);  // subtract yaw from thro
   }
 
+  // Quick Items
+  public void zeroEncoders(){
+    // zero encoders
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
