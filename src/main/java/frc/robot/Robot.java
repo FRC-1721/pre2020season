@@ -7,12 +7,17 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ROS_FullAuto;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -23,8 +28,13 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
+  // Subsystems
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Drivetrain drivetrain = new Drivetrain();
+
+  // OI
   public static OI m_oi;
+
 
   Command robot_autonomous; // Autonomous
   SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
@@ -35,10 +45,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Define SmartDashboard widgets
+    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    //chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);
+
+    // Define OI
     m_oi = new OI();
-    autoChooser.setDefaultOption("Default Auto", new ROS_FullAuto()); // Create a default auto
-    // chooser.addOption("My Auto", new MyAutoCommand()); // Add aditional autos
-    SmartDashboard.putData("Auto mode", autoChooser); // Put the chooser on the dash board
+
+    // Define Joysticks
+    RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
+
+    // Define motors
+    RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
+    RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
   }
 
   /**
@@ -120,6 +140,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    
+    // Pass robotmap variables to the drivetrain manual drive method
+    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
   }
 
   /**
