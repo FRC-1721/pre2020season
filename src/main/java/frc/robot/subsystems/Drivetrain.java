@@ -22,8 +22,8 @@ public class Drivetrain extends Subsystem {
   {
     Double thro = Driverstick.getRawAxis(RobotMap.driverstickThroAxis); //populates "thro" as the angle of the driverstick
     Double yaw = Driverstick.getRawAxis(RobotMap.driverstickYawAxis); //populates "yow" as the angle of the driverstick again
-    Starboard.set(ControlMode.PercentOutput, thro - yaw);
-    Port.set(ControlMode.PercentOutput, (thro * -1) - yaw); 
+    Port.set(ControlMode.PercentOutput, thro - yaw);
+    Starboard.set(ControlMode.PercentOutput, (thro * -1) - yaw); 
   }
   
 
