@@ -15,17 +15,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * This subsystem drives a tank style robot.
  */
 public class Drivetrain extends Subsystem {
-  public static void Driver_Control(TalonSRX Starboard, TalonSRX Port, Joystick Driverstick)
-  {
-    Double thro = Driverstick.getRawAxis(RobotMap.driverstickThroAxis); //populates "thro" as the angle of the driverstick
-    Double yaw = Driverstick.getRawAxis(RobotMap.driverstickYawAxis); //populates "yow" as the angle of the driverstick again
-    Port.set(ControlMode.PercentOutput, thro + yaw);
-    Starboard.set(ControlMode.PercentOutput, (thro * -1) + yaw); 
+  /**
+   * This function uses manual control from a joystick.
+   */
+  public static void flyByWireA(TalonSRX starboard, TalonSRX port, Joystick DriverJoystick){
+
+    double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
+    double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
+
+    starboard.set(ControlMode.PercentOutput, (-1 * thro) + yaw);  // From the inverse of thro, subtract yaw
+    port.set(ControlMode.PercentOutput, thro + yaw);  // subtract yaw from thro
   }
-  
+
+  // Quick Items
+  public void zeroEncoders(){
+    // zero encoders
+  }
 
   @Override
   public void initDefaultCommand() {
