@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,6 +29,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
+  public static Drivetrain m_drivetrain = new Drivetrain();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -40,6 +44,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    RobotMap.driverstick = new Joystick(RobotMap.driverstickPort);
+    RobotMap.globalStarboardMotor = new TalonSRX(RobotMap.globalStarboard);
+    RobotMap.globalStarboardMotor = new TalonSRX(RobotMap.globalPort);
   }
 
   /**
@@ -110,6 +117,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    Drivetrain.Driver_Control(RobotMap.globalStarboardMotor, RobotMap.globalPortMotor, RobotMap.driverstick);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
