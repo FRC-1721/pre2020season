@@ -7,13 +7,16 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ROS_FullAuto;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,11 +26,16 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  // Subsystems
+  //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Drivetrain m_drivetrain = new Drivetrain();
+
+  // OI
   public static OI m_oi;
 
-  Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  Command robot_autonomous; // Autonomous
+  SendableChooser<Command> m_autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,10 +43,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    // Define SmartDashboard widgets
+    m_autoChooser.setDefaultOption("Default Auto", new ROS_FullAuto());
+    //chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_autoChooser);
+
+    // Define OI
+    m_oi = new OI();  
+
+    // Define Joysticks
+    RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
+
+    // Define motors
+    RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
+    RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
   }
 
   /**
@@ -80,7 +98,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    robot_autonomous = m_autoChooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -89,9 +107,9 @@ public class Robot extends TimedRobot {
      * autonomousCommand = new ExampleCommand(); break; }
      */
 
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+    // schedule the autonomous command
+    if (robot_autonomous != null) {
+      robot_autonomous.start();
     }
   }
 
@@ -109,8 +127,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (robot_autonomous != null) {
+      robot_autonomous.cancel();
     }
   }
 
@@ -120,6 +138,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    
+    // Pass robotmap variables to the drivetrain manual drive method
+    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick); // This should be called in a command 
   }
 
   /**
