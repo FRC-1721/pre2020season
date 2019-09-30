@@ -26,8 +26,8 @@ public class Drivetrain extends Subsystem {
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
     double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
-    starboard.set(ControlMode.PercentOutput, (-1 * thro) - yaw);  // From the inverse of thro, subtract yaw
-    port.set(ControlMode.PercentOutput, thro - yaw);  // subtract yaw from thro
+    starboard.set(ControlMode.PercentOutput, (-1 * thro) + yaw);  // From the inverse of thro, subtract yaw
+    port.set(ControlMode.PercentOutput, thro + yaw);  // subtract yaw from thro
   }
 
   // Quick Items

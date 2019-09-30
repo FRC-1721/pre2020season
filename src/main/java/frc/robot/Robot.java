@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto mode", m_autoChooser);
 
     // Define OI
-    m_oi = new OI();
+    m_oi = new OI();  
 
     // Define Joysticks
     RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     
     // Pass robotmap variables to the drivetrain manual drive method
-    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
+    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick); // This should be called in a command 
   }
 
   /**
