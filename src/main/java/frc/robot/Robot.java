@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto mode", m_chooser);
     RobotMap.driverstick = new Joystick(RobotMap.driverstickPort);
     RobotMap.globalStarboardMotor = new TalonSRX(RobotMap.globalStarboard);
-    RobotMap.globalStarboardMotor = new TalonSRX(RobotMap.globalPort);
+    RobotMap.globalPortMotor = new TalonSRX(RobotMap.globalPort);
   }
 
   /**
@@ -117,7 +117,6 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    Drivetrain.Driver_Control(RobotMap.globalStarboardMotor, RobotMap.globalPortMotor, RobotMap.driverstick);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
