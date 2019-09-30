@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 import frc.robot.commands.ResetDrivetrainEncoders;
 
 /**
@@ -23,8 +24,8 @@ public class Telemetry extends Subsystem {
 
   public void update() {
     // Drivetrain
-    //SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderCount());
-    //SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderDistance());
+    SmartDashboard.putNumber("starboardEncoder", RobotMap.portMotor.getSelectedSensorPosition()); // Should technically create a new method in Drivetrain.java for this
+    SmartDashboard.putNumber("portEncoder", RobotMap.starboardMotor.getSelectedSensorPosition());
   }
 
   @Override
