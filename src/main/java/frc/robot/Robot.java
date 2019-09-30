@@ -28,14 +28,14 @@ import frc.robot.subsystems.Drivetrain;
 public class Robot extends TimedRobot {
   // Subsystems
   //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  public static Drivetrain drivetrain = new Drivetrain();
+  public static Drivetrain m_drivetrain = new Drivetrain();
 
   // OI
   public static OI m_oi;
 
 
   Command robot_autonomous; // Autonomous
-  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
+  SendableChooser<Command> m_autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
 
   /**
    * This function is run when the robot is first started up and should be
@@ -44,9 +44,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Define SmartDashboard widgets
-    autoChooser.setDefaultOption("Default Auto", new ROS_FullAuto());
+    m_autoChooser.setDefaultOption("Default Auto", new ROS_FullAuto());
     //chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", autoChooser);
+    SmartDashboard.putData("Auto mode", m_autoChooser);
 
     // Define OI
     m_oi = new OI();
@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    robot_autonomous = autoChooser.getSelected();
+    robot_autonomous = m_autoChooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
