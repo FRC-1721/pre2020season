@@ -30,6 +30,14 @@ public class Drivetrain extends Subsystem {
     port.set(ControlMode.PercentOutput, thro - yaw);  // subtract yaw from thro
   }
 
+  /**
+   * This function uses digital imput to control the robot from a coprosser.
+   */
+  public static void flyWithWiresA(TalonSRX starboardMotor, TalonSRX portMotor, double starboardThro, double portThro){
+    starboardMotor.set(ControlMode.PercentOutput, starboardThro);  // Set to the double starboardThro
+    portMotor.set(ControlMode.PercentOutput, portThro);  // Set to the double portThro
+  }
+
   // Quick Items
   public void zeroEncoders(){
     // zero encoders
