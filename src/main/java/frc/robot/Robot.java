@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
 
   // OI
   public static OI m_oi;
-  public static Drivetrain m_drivetrain = new Drivetrain();
 
 
   Command robot_autonomous; // Autonomous
