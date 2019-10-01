@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ROS_FullAuto;
 import frc.robot.subsystems.Drivetrain;
 
@@ -29,6 +30,9 @@ public class Robot extends TimedRobot {
   // Subsystems
   //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static Drivetrain drivetrain = new Drivetrain();
+
+  // Commands
+  public static ArcadeDrive arcadeDrive = new ArcadeDrive();
 
   // OI
   public static OI m_oi;
@@ -137,10 +141,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+    arcadeDrive.start();
     
-    // Pass robotmap variables to the drivetrain manual drive method
-    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
+    Scheduler.getInstance().run();
   }
 
   /**
