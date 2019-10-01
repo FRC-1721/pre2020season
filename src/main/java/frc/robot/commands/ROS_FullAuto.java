@@ -16,13 +16,12 @@ import frc.robot.subsystems.Drivetrain;
 public class ROS_FullAuto extends Command {
 
   // ROS Variables
-  NetworkTableEntry robotX; // Current x, y and heading of the robot
-  NetworkTableEntry robotY;
-  NetworkTableEntry robotHeading;
-
+  //NetworkTableEntry robotX; // Current x, y and heading of the robot
+  //NetworkTableEntry robotY;
+  //NetworkTableEntry robotHeading;
   NetworkTableEntry coprocessorPort; // For tank drive
   NetworkTableEntry coprocessorStarboard;
-  NetworkTableEntry rosTime; // Is ros time (slow estimate)
+  //NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   public ROS_FullAuto() {
     requires(Robot.drivetrain);
@@ -32,18 +31,18 @@ public class ROS_FullAuto extends Command {
   @Override
   protected void initialize() {
     // Define ROS vars
-    robotX = RobotMap.rosTable.getEntry("robotX");
-    robotY = RobotMap.rosTable.getEntry("robotY");
-    robotHeading = RobotMap.rosTable.getEntry("robotHeading");
+    //robotX = RobotMap.rosTable.getEntry("robotX");
+    //robotY = RobotMap.rosTable.getEntry("robotY");
+    //robotHeading = RobotMap.rosTable.getEntry("robotHeading");
     coprocessorPort = RobotMap.rosTable.getEntry("coprocessorPort");
     coprocessorStarboard = RobotMap.rosTable.getEntry("coprocessorStarboard");
-    rosTime = RobotMap.rosTable.getEntry("rosTime");
+    //rosTime = RobotMap.rosTable.getEntry("rosTime");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0);
+    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, coprocessorStarboard.getDouble(0), coprocessorPort.getDouble(0));
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -61,5 +60,7 @@ public class ROS_FullAuto extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0);
+    end();
   }
 }

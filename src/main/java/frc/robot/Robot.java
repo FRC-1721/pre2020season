@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ROS_FullAuto;
+import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -34,6 +35,8 @@ public class Robot extends TimedRobot {
 
   // Commands
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
+  public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
+  public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
 
   // OI
   public static OI m_oi;
