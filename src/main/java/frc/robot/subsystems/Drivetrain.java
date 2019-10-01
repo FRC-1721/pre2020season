@@ -38,10 +38,15 @@ public class Drivetrain extends Subsystem {
     portMotor.set(ControlMode.PercentOutput, portThro);  // Set to the double portThro
   }
 
-  // Quick Items
+  /**
+   * Zero the drive encoders.
+   */
   public void zeroEncoders(){
     // zero encoders
   }
+
+  public double getDriveEncoderPort(){return RobotMap.portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
+  public double getDriveEncoderStarboard(){return RobotMap.starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
 
   @Override
   public void initDefaultCommand() {
