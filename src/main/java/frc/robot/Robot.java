@@ -82,6 +82,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    arcadeDrive.cancel(); // Stop the arcade drive command
   }
 
   @Override
@@ -127,13 +128,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (robot_autonomous != null) {
+    if (robot_autonomous != null) { // Stops autonomous
       robot_autonomous.cancel();
     }
+    
+    arcadeDrive.start(); // Start the arcade drive command
   }
 
   /**
@@ -141,8 +140,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    arcadeDrive.start();
-    
     Scheduler.getInstance().run();
   }
 
