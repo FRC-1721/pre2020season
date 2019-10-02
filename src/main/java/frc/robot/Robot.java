@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() 
   {
-    Manual();
+
   }
 
   /**
@@ -123,7 +123,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    DriveTrain.Manual(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
+    ManualDrive.Manual(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
   }
 
   /**

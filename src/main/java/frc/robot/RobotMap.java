@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,4 +27,17 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
+
+  public static int starboardAddress = 2; // Last Configured: Never
+  public static int portAddress = 1;  // Last Configured: Never
+
+  // TalonSRX Objects
+  public static TalonSRX starboardMotor; // These objects represent the motors themselves
+  public static TalonSRX portMotor;
+
+  // Driver Stick Information
+  public static Joystick driverStick; // This object represents the joystick itself
+  public static int driverStick_Port = 0; // The driver station item slot this controler resides in
+  public static int driverStick_throaxis = 1; // The axis for thro
+  public static int driverStick_yawaxis = 2; // The axis for yaw
 }
