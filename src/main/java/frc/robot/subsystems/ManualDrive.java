@@ -23,8 +23,8 @@ public class ManualDrive extends Subsystem {
     
     
     Double thro = driverStick.getRawAxis(1);
-    starboard.set(ControlMode.PercentOutput, thro - yaw);
-    port.set(ControlMode.PercentOutput, (thro * -1) - yaw); // negative 1 because motor is mounted 180 degrees compared to the other.
+    starboard.set(ControlMode.PercentOutput, thro + yaw);
+    port.set(ControlMode.PercentOutput, (thro * -1) + yaw); // negative 1 because motor is mounted 180 degrees compared to the other.
 
 
   }
