@@ -23,6 +23,16 @@ public static void manualcontrol (TalonSRX StarBoard, TalonSRX port, Joystick Jo
   Double yaw = JoyStickLever.getRawAxis(2);
   port.set(ControlMode.PercentOutput, (thro * -1) - yaw); 
   StarBoard.set(ControlMode.PercentOutput, thro - yaw);
+
+  if(thro <= 1){
+    SmartDashboard.putString("Moving?" , "TUUUUUUUUUUUUURRRRRRRRRRRNNNNNNNNN" );
+  }else{
+    SmartDashboard.putString("Moving?" , "scurt" );
+  }
+    
+  }
+
+
 }
 
 
