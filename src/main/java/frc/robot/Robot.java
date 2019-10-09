@@ -28,7 +28,6 @@ import frc.robot.subsystems.Drivetrain;
 public class Robot extends TimedRobot {
   // Subsystems
   //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  public static Drivetrain m_drivetrain = new Drivetrain();
 
   // OI
   public static OI m_oi;
@@ -141,7 +140,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     
     // Pass robotmap variables to the drivetrain manual drive method
-    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick); // This should be called in a command 
+    Drivetrain.Driver_Control(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick); // This should be called in a command 
   }
 
   /**
