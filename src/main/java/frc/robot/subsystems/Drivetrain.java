@@ -25,11 +25,11 @@ public static void manualcontrol (TalonSRX StarBoard, TalonSRX port, Joystick Jo
   port.set(ControlMode.PercentOutput, (thro * -1) - yaw); 
   StarBoard.set(ControlMode.PercentOutput, thro - yaw);
 
-  if(thro <= 1){
+  if(thro >= 0.1){
     SmartDashboard.putString("Moving?" , "TUUUUUUUUUUUUURRRRRRRRRRRNNNNNNNNN" );
   }else{
     SmartDashboard.putString("Moving?" , "scurt" );
-  }   
+  }
 }
 
 
