@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here. make it move forwards and backwords 
@@ -28,11 +29,7 @@ public static void manualcontrol (TalonSRX StarBoard, TalonSRX port, Joystick Jo
     SmartDashboard.putString("Moving?" , "TUUUUUUUUUUUUURRRRRRRRRRRNNNNNNNNN" );
   }else{
     SmartDashboard.putString("Moving?" , "scurt" );
-  }
-    
-  }
-
-
+  }   
 }
 
 
