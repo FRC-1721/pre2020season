@@ -18,14 +18,17 @@ import edu.wpi.first.wpilibj.Joystick;
  * floating around.
  */
 public class RobotMap {
-  public static int globalStarboard = 2;
-  public static int globalPort = 1;
+  // CAN Addresses
+  public static int starboardAddress = 2; // Last Configured: Never
+  public static int portAddress = 1;  // Last Configured: Never
 
-  public static Joystick driverstick;
-  public static int driverstickPort = 0;
-  public static int driverstickThroAxis = 1;
-  public static int driverstickYawAxis = 2;
+  // TalonSRX Objects
+  public static TalonSRX starboardMotor; // These objects represent the motors themselves
+  public static TalonSRX portMotor;
 
-  public static TalonSRX globalStarboardMotor;
-  public static TalonSRX globalPortMotor;
+  // Driver Stick Information
+  public static Joystick driverStick; // This object represents the joystick itself
+  public static int driverStick_Port = 0; // The driver station item slot this controler resides in
+  public static int driverStick_throaxis = 1; // The axis for thro
+  public static int driverStick_yawaxis = 2; // The axis for yaw
 }
