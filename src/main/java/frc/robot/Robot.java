@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.ExampleCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,7 +46,7 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
 
-    RobotMap.driverStick = new Joystick(RobotMap.driverStickPort);
+    RobotMap.driverStick = new Joystick(RobotMap.JoyStickLever_Port);
     RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress);
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress);
     
