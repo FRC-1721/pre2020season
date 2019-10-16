@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -24,9 +25,25 @@ public class ManualDrive extends Subsystem {
     
     Double thro = driverStick.getRawAxis(1);
     starboard.set(ControlMode.PercentOutput, -thro + yaw);
-    port.set(ControlMode.PercentOutput, (thro + yaw)); // negative 1 because motor is mounted 180 degrees compared to the other.
+    port.set(ControlMode.PercentOutput, (thro + yaw));
 
-
+    if(thro <= -1)
+    {
+      SmartDashboard.putString("Moving?", "BACKING UP!");
+    } else if(thro >= 1) 
+    {
+      SmartDashboard.putString("Moving?", "OUT OF THE WAY!");
+    } else
+    {
+      SmartDashboard.putString("Moving?", "WHAT IS MY PURPOSE?");
+    }
+    if(yaw != 0)
+    {
+      SmartDashboard.putString("Spin?", "IM SPINNING!");
+    } else
+    {
+      SmartDashboard.putString("Spin?", "IM NOT SPINNING... YET!");
+    }
   }
 
   @Override
