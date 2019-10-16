@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
 
     // Define motors
-    RobotMap.starboardMotor = TalonSRX(RobotMap.starboardMotor); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
+    RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
   }
 
