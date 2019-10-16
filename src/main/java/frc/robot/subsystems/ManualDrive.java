@@ -40,9 +40,11 @@ public class ManualDrive extends Subsystem {
     if(yaw != 0)
     {
       SmartDashboard.putString("Spin?", "IM SPINNING!");
-    } else
+    } else if(yaw < 0)
     {
-      SmartDashboard.putString("Spin?", "IM NOT SPINNING... YET!");
+      SmartDashboard.putString("Spin?", "IM SPINNING LEFT!");
+    } else {
+      SmartDashboard.putString("Spin?", "IM SPINNING RIGHT!");
     }
   }
 
