@@ -25,7 +25,7 @@ public class Telemetry extends Subsystem {
 
   public void update() {
     // Drivetrain
-    SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort());
+    SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
 
     // ROS
