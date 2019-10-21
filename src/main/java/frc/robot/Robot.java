@@ -32,7 +32,6 @@ import frc.robot.subsystems.Telemetry;
  */
 public class Robot extends TimedRobot {
   // Subsystems
-  //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static Drivetrain drivetrain = new Drivetrain();
   public static Telemetry telemetry = new Telemetry();
 
@@ -56,13 +55,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Define SmartDashboard widgets
-    autoChooser.setDefaultOption("Default Auto", new ROS_FullAuto());
-    //chooser.addOption("My Auto", new MyAutoCommand());
+    autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
+    autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
 
     // Setup networkTables
     RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
     RobotMap.rosTable = RobotMap.networkTableInst.getTable(RobotMap.rosTablename); // Get the table ros
+    RobotMap.starboardEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.starboardEncoderName); // Get the writable entries
+    RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
 
     // Define OI
     m_oi = new OI();
@@ -91,6 +92,7 @@ public class Robot extends TimedRobot {
     // Drivetrain
     SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
   }
 
   /**
