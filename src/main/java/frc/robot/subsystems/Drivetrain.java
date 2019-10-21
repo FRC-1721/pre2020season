@@ -41,7 +41,8 @@ public class Drivetrain extends Subsystem {
    * Zero the drive encoders.
    */
   public void zeroEncoders(){
-    // zero encoders
+    RobotMap.portMotor.set(ControlMode.Position, 0);
+    RobotMap.starboardMotor.set(ControlMode.Position, 0);
   }
 
   public double getDriveEncoderPort(){return RobotMap.portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
