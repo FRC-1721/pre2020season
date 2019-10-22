@@ -27,6 +27,7 @@ public class Telemetry extends Subsystem {
     // Drivetrain
     SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
+    SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
 
     // ROS in
     SmartDashboard.putNumber("ROS Current X Pos",(RobotMap.rosTable.getEntry("robotX")).getDouble(-1)); // The nesting here is a little funny but we're getting an entry in the table and then from that table we are getting a double.
@@ -36,7 +37,7 @@ public class Telemetry extends Subsystem {
     RobotMap.starboardEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderStarboard());
     RobotMap.portEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderPort());
 
-    System.out.println("Ran Telemetry.update");
+    System.out.println("Ran Telemetry.update"); // This is only for debugging!
   }
 
   @Override

@@ -89,10 +89,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Drivetrain
-    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
-    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
   }
 
   /**
@@ -168,5 +164,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    // Drivetrain
+    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
+    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
   }
 }
