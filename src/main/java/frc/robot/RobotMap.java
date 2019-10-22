@@ -9,6 +9,8 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -18,6 +20,11 @@ import edu.wpi.first.wpilibj.Joystick;
  * floating around.
  */
 public class RobotMap {
+  // NetworkTables
+  public static NetworkTableInstance networkTableInst;
+  public static NetworkTable rosTable;
+  public static String rosTablename = "ros";
+
   // CAN Addresses
   public static int starboardAddress = 2; // Last Configured: Never
   public static int portAddress = 1;  // Last Configured: Never

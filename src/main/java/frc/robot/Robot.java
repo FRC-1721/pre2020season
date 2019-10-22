@@ -9,14 +9,19 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ROS_FullAuto;
+import frc.robot.commands.ResetDrivetrainEncoders;
+import frc.robot.commands.Telem;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Telemetry;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,7 +33,14 @@ import frc.robot.subsystems.Drivetrain;
 public class Robot extends TimedRobot {
   // Subsystems
   //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  public static Drivetrain m_drivetrain = new Drivetrain();
+  public static Drivetrain drivetrain = new Drivetrain();
+  public static Telemetry telemetry = new Telemetry();
+
+  // Commands
+  public static ArcadeDrive arcadeDrive = new ArcadeDrive();
+  public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
+  public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
+  public static Telem telem = new Telem();
 
   // OI
   public static OI m_oi;
@@ -48,6 +60,10 @@ public class Robot extends TimedRobot {
     //chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_autoChooser);
 
+    // Setup networkTables
+    RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
+    RobotMap.rosTable = RobotMap.networkTableInst.getTable(RobotMap.rosTablename); // Get the table ros
+
     // Define OI
     m_oi = new OI();  
 
@@ -57,6 +73,9 @@ public class Robot extends TimedRobot {
     // Define motors
     RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
+
+    // Start background commands
+    telem.start();
   }
 
   /**
@@ -69,6 +88,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    // Drivetrain
+    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
+    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
   }
 
   /**
@@ -78,6 +100,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    arcadeDrive.cancel(); // Stop the arcade drive command
   }
 
   @Override
@@ -123,13 +146,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (robot_autonomous != null) {
+    if (robot_autonomous != null) { // Stops autonomous
       robot_autonomous.cancel();
     }
+    
+    arcadeDrive.start(); // Start the arcade drive command
   }
 
   /**
@@ -138,9 +159,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    
-    // Pass robotmap variables to the drivetrain manual drive method
-    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick); // This should be called in a command 
   }
 
   /**

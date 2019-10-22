@@ -22,7 +22,6 @@ public class Drivetrain extends Subsystem {
    * This function uses manual control from a joystick.
    */
   public static void flyByWireA(TalonSRX starboard, TalonSRX port, Joystick DriverJoystick){
-
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
     double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
@@ -30,10 +29,24 @@ public class Drivetrain extends Subsystem {
     port.set(ControlMode.PercentOutput, thro + yaw);  // subtract yaw from thro
   }
 
-  // Quick Items
-  public void zeroEncoders(){
-    // zero encoders
+  /**
+   * This function uses digital imput to control the robot from a coprosser.
+   */
+  public static void flyWithWiresA(TalonSRX starboardMotor, TalonSRX portMotor, double starboardThro, double portThro){
+    starboardMotor.set(ControlMode.PercentOutput, starboardThro);  // Set to the double starboardThro
+    portMotor.set(ControlMode.PercentOutput, portThro);  // Set to the double portThro
   }
+
+  /**
+   * Zero the drive encoders.
+   */
+  public void zeroEncoders(){
+    RobotMap.portMotor.set(ControlMode.Position, 0);
+    RobotMap.starboardMotor.set(ControlMode.Position, 0);
+  }
+
+  public double getDriveEncoderPort(){return RobotMap.portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
+  public double getDriveEncoderStarboard(){return RobotMap.starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
 
   @Override
   public void initDefaultCommand() {

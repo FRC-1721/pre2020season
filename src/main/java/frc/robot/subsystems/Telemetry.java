@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ResetDrivetrainEncoders;
 
@@ -24,8 +25,12 @@ public class Telemetry extends Subsystem {
 
   public void update() {
     // Drivetrain
-    SmartDashboard.putNumber("starboardEncoder", RobotMap.portMotor.getSelectedSensorPosition()); // Should technically create a new method in Drivetrain.java for this
-    SmartDashboard.putNumber("portEncoder", RobotMap.starboardMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
+    SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
+
+    // ROS
+    SmartDashboard.putNumber("ROS Current X Pos",(RobotMap.rosTable.getEntry("robotX")).getDouble(-1)); // The nesting here is a little funny but we're getting an entry in the table and then from that table we are getting a double.
+    SmartDashboard.putNumber("ROS Current Y Pos",(RobotMap.rosTable.getEntry("robotY")).getDouble(-1));
   }
 
   @Override
