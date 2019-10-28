@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
+    Scheduler.getInstance().run(); // Honestly i have no idea what this line does
   }
 
   /**
