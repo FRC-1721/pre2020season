@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   public static Drivetrain m_driveTrain = new Drivetrain(); 
+  public static Opcontrol opcontrol = new opcontrol();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -125,6 +126,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    opcontrol.start();
   }
 
   /**
@@ -133,7 +135,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    Drivetrain.manualcontrol(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
   }
 
   /**
