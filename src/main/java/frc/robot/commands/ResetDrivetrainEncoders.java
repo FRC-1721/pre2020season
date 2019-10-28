@@ -19,13 +19,13 @@ public class ResetDrivetrainEncoders extends InstantCommand {
    */
   public ResetDrivetrainEncoders() {
     super();
-    requires(Robot.m_drivetrain);
+    requires(Robot.drivetrain);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.m_drivetrain.zeroEncoders();
+    Robot.drivetrain.zeroEncoders();
   }
 
 }
