@@ -8,6 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.RobotMap;
+import frc.robot.subsystems.Drivetrain;
 
 public class opcontrol extends Command {
   public opcontrol() {
