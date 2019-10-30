@@ -54,13 +54,13 @@ public class ROS_FullAuto extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0);
     end();
   }
 }
