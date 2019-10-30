@@ -27,24 +27,31 @@ public class ManualDrive extends Subsystem {
     starboard.set(ControlMode.PercentOutput, -thro + yaw);
     port.set(ControlMode.PercentOutput, (thro + yaw));
 
-    if(thro <= -1)
+
+
+    if(thro > 0)
     {
       SmartDashboard.putString("Moving?", "BACKING UP!");
-    } else if(thro >= 1) 
+    } 
+    else if(thro < 0) 
     {
       SmartDashboard.putString("Moving?", "OUT OF THE WAY!");
-    } else
+    } 
+    else
     {
       SmartDashboard.putString("Moving?", "WHAT IS MY PURPOSE?");
     }
-    if(yaw != 0)
-    {
-      SmartDashboard.putString("Spin?", "IM SPINNING!");
-    } else if(yaw < 0)
+    if(yaw < 0)
     {
       SmartDashboard.putString("Spin?", "IM SPINNING LEFT!");
-    } else {
+    } 
+    else if(yaw > 0)
+    {
       SmartDashboard.putString("Spin?", "IM SPINNING RIGHT!");
+    } 
+    else 
+    {
+      SmartDashboard.putString("Spin?", "IM NOT SPINNING!");
     }
   }
 
