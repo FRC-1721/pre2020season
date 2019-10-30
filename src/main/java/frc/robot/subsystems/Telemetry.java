@@ -37,6 +37,10 @@ public class Telemetry extends Subsystem {
     RobotMap.starboardEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderStarboard());
     RobotMap.portEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderPort());
 
+    // Legacy ROS
+    SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
+    SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
+
     System.out.println("Ran Telemetry.update"); // This is only for debugging!
   }
 
