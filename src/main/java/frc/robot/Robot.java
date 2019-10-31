@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 
 
   Command robot_autonomous; // Autonomous
-  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
+  SendableChooser<Command> m_autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
 
   /**
    * This function is run when the robot is first started up and should be
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
 
     // Define OI
-    m_oi = new OI();
+    m_oi = new OI();  
 
     // Define Joysticks
     RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    robot_autonomous = autoChooser.getSelected();
+    robot_autonomous = m_autoChooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
