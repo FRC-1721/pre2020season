@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
-import frc.robot.commands.Telem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Telemetry;
 
@@ -32,7 +31,6 @@ import frc.robot.subsystems.Telemetry;
  */
 public class Robot extends TimedRobot {
   // Subsystems
-  //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static Drivetrain drivetrain = new Drivetrain();
   public static Telemetry telemetry = new Telemetry();
 
@@ -40,7 +38,6 @@ public class Robot extends TimedRobot {
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
   public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
   public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
-  public static Telem telem = new Telem();
 
   // OI
   public static OI m_oi;
@@ -56,13 +53,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Define SmartDashboard widgets
-    m_autoChooser.setDefaultOption("Default Auto", new ROS_FullAuto());
-    //chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_autoChooser);
+    autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
+    autoChooser.addOption("Do nothing", null); // Send null
+    SmartDashboard.putData("Auto mode", autoChooser);
 
     // Setup networkTables
     RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
     RobotMap.rosTable = RobotMap.networkTableInst.getTable(RobotMap.rosTablename); // Get the table ros
+    RobotMap.starboardEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.starboardEncoderName); // Get the writable entries
+    RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
 
     // Define OI
     m_oi = new OI();  
@@ -73,9 +72,6 @@ public class Robot extends TimedRobot {
     // Define motors
     RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
-
-    // Start background commands
-    telem.start();
   }
 
   /**
@@ -88,9 +84,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Drivetrain
-    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
-    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
+    Robot.telemetry.update();
   }
 
   /**
@@ -105,7 +99,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
+    Scheduler.getInstance().run(); // Honestly i have no idea what this line does
   }
 
   /**
@@ -166,5 +160,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    // Drivetrain
+    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
+    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
   }
 }
