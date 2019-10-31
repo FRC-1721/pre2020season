@@ -10,8 +10,10 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -63,6 +65,9 @@ public class Robot extends TimedRobot {
     RobotMap.starboardEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.starboardEncoderName); // Get the writable entries
     RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
 
+    // Define IO
+    RobotMap.lapis_boot = new DigitalOutput(RobotMap.lapis_dio_port);
+
     // Define OI
     m_oi = new OI();  
 
@@ -72,6 +77,11 @@ public class Robot extends TimedRobot {
     // Define motors
     RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
+
+    // Boot the coprossesor
+    RobotMap.lapis_boot.set(true); // Turn the power on
+    Timer.delay(0.5);
+    RobotMap.lapis_boot.set(false); // Turn the power off
   }
 
   /**

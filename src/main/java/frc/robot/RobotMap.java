@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -29,6 +30,10 @@ public class RobotMap {
   public static String rosTablename = "ROS"; // The string name of the table
   public static String starboardEncoderName = "Starboard";
   public static String portEncoderName = "Port";
+
+  // Jetson Controls
+  public static DigitalOutput lapis_boot;
+  public static int lapis_dio_port = 0;
 
   // CAN Addresses
   public static int starboardAddress = 2; // Last Configured: Never
