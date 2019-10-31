@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 
 
   Command robot_autonomous; // Autonomous
-  SendableChooser<Command> m_autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
+  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
 
   /**
    * This function is run when the robot is first started up and should be
@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    robot_autonomous = m_autoChooser.getSelected();
+    robot_autonomous = autoChooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
