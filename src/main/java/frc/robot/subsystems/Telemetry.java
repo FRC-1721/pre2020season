@@ -41,7 +41,7 @@ public class Telemetry extends Subsystem {
     SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
     SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
 
-    System.out.println("Ran Telemetry.update"); // This is only for debugging!
+    //System.out.println("Ran Telemetry.update"); // This is only for debugging!
   }
 
   @Override

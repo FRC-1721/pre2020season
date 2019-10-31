@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
-import frc.robot.commands.Telem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Telemetry;
 
@@ -39,7 +38,6 @@ public class Robot extends TimedRobot {
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
   public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
   public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
-  public static Telem telem = new Telem();
 
   // OI
   public static OI m_oi;
@@ -74,9 +72,6 @@ public class Robot extends TimedRobot {
     // Define motors
     RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
-
-    // Start background commands
-    telem.start();
   }
 
   /**
@@ -89,6 +84,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    Robot.telemetry.update();
   }
 
   /**
