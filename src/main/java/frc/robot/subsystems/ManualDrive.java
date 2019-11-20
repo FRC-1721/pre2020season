@@ -37,7 +37,7 @@ public class ManualDrive extends Subsystem {
     } 
     else
     {
-      SmartDashboard.putString("Moving?", "WHAT IS MY PURPOSE?");
+      SmartDashboard.putString("Moving?", "NOT MOVING");
     }
     if(yaw < 0)
     {
