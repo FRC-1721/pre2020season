@@ -25,17 +25,28 @@ public class Drivetrain extends Subsystem {
     Double yaw = Driverstick.getRawAxis(RobotMap.driverStick_yawaxis); //populates "yow" as the angle of the driverstick again
     Port.set(ControlMode.PercentOutput, thro + yaw);
     Starboard.set(ControlMode.PercentOutput, (thro * -1) + yaw);
-    if(thro >= 1){
+    if(thro < 0)
+    {
       SmartDashboard.putString("Moving?", "VROOM!" );
-    } else if(thro <= -1){
+    } 
+    else if(thro > 0)
+    {
       SmartDashboard.putString("Moving?", "BEEP BEEP!");
-    } else {
+    } 
+    else 
+    {
       SmartDashboard.putString("Moving?", "Nope");
     }
-    if(yaw != 0){
-      SmartDashboard.putString("Spin?", "SPIN SPIN!");
-    } else {
-      SmartDashboard.putString("Spin?", "What?");
+    if(yaw > 0)
+    {
+      SmartDashboard.putString("Spin?", "right");
+    }
+    else if(yaw < 0)
+      SmartDashboard.putString("Spin?", "rightnt");
+    }
+    else
+    {
+      SmartDashboard.putString("you no move");
     }
   }
 
