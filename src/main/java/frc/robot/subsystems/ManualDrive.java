@@ -27,8 +27,6 @@ public class ManualDrive extends Subsystem {
     starboard.set(ControlMode.PercentOutput, -thro + yaw);
     port.set(ControlMode.PercentOutput, (thro + yaw));
 
-    System.out.println("It's working");
-
     if(thro > 0)
     {
       SmartDashboard.putString("Moving?", "BACKING UP!");
