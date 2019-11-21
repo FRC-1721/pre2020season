@@ -10,7 +10,9 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -21,9 +23,17 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotMap {
   // NetworkTables
-  public static NetworkTableInstance networkTableInst;
-  public static NetworkTable rosTable;
-  public static String rosTablename = "ros";
+  public static NetworkTableInstance networkTableInst; // The instance of networktables (system wide)
+  public static NetworkTable rosTable; // The table object
+  public static NetworkTableEntry starboardEncoderEntry; // An entry objecy
+  public static NetworkTableEntry portEncoderEntry;
+  public static String rosTablename = "ROS"; // The string name of the table
+  public static String starboardEncoderName = "Starboard";
+  public static String portEncoderName = "Port";
+
+  // Jetson Controls
+  public static DigitalOutput lapis_boot;
+  public static int lapis_dio_port = 0;
 
   // CAN Addresses
   public static int starboardAddress = 2; // Last Configured: Never
@@ -38,4 +48,7 @@ public class RobotMap {
   public static int driverStick_Port = 0; // The driver station item slot this controler resides in
   public static int driverStick_throaxis = 1; // The axis for thro
   public static int driverStick_yawaxis = 2; // The axis for yaw
+
+  // Other
+  public static int ticksPerMeter = 1000;
 }

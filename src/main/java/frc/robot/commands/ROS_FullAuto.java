@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
@@ -21,7 +22,7 @@ public class ROS_FullAuto extends Command {
   //NetworkTableEntry robotHeading;
   NetworkTableEntry coprocessorPort; // For tank drive
   NetworkTableEntry coprocessorStarboard;
-  //NetworkTableEntry rosTime; // Is ros time (slow estimate)
+  NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   public ROS_FullAuto() {
     requires(Robot.drivetrain);
@@ -36,13 +37,14 @@ public class ROS_FullAuto extends Command {
     //robotHeading = RobotMap.rosTable.getEntry("robotHeading");
     coprocessorPort = RobotMap.rosTable.getEntry("coprocessorPort");
     coprocessorStarboard = RobotMap.rosTable.getEntry("coprocessorStarboard");
-    //rosTime = RobotMap.rosTable.getEntry("rosTime");
+    rosTime = RobotMap.rosTable.getEntry("rosTime");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, coprocessorStarboard.getDouble(0), coprocessorPort.getDouble(0));
+    SmartDashboard.putNumber("Current Ros Time", rosTime.getDouble(-1));
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -54,13 +56,13 @@ public class ROS_FullAuto extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0);
     end();
   }
 }

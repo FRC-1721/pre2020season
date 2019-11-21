@@ -47,6 +47,7 @@ public class Drivetrain extends Subsystem {
 
   public double getDriveEncoderPort(){return RobotMap.portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
   public double getDriveEncoderStarboard(){return RobotMap.starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
+  public double getOverallSpeed(){return (((((RobotMap.starboardMotor.getSelectedSensorVelocity() * RobotMap.portMotor.getSelectedSensorVelocity()) / 2 ) * 10) / RobotMap.ticksPerMeter) * 1.944);} // Returns the average speed of the robot in knots
 
   @Override
   public void initDefaultCommand() {
