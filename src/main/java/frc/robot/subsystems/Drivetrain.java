@@ -26,9 +26,9 @@ public static void manualcontrol (TalonSRX StarBoard, TalonSRX port, Joystick Jo
   StarBoard.set(ControlMode.PercentOutput, (thro * -1) + yaw);
 
   if(thro >= 0.1){
-    SmartDashboard.putString("Moving?" , "TUUUUUUUUUUUUURRRRRRRRRRRNNNNNNNNN" );
+    SmartDashboard.putString("Moving?" , "Turning..." );
   }else{
-    SmartDashboard.putString("Moving?" , "scurt" );
+    SmartDashboard.putString("Moving?" , "Reverse Reverse" );
   } 
 }
 
