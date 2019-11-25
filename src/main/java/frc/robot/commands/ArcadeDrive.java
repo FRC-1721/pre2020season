@@ -41,6 +41,7 @@ public class ArcadeDrive extends Command {
   @Override
   protected void end() {
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Leave the motors with 0, so we dont race off uncontrollably
+    SmartDashboard.putString("alert", "Exiting manual mode");
   }
 
   // Called when another command which requires one or more of the same
