@@ -38,6 +38,7 @@ public class ROS_FullAuto extends Command {
     coprocessorPort = RobotMap.rosTable.getEntry("coprocessorPort");
     coprocessorStarboard = RobotMap.rosTable.getEntry("coprocessorStarboard");
     rosTime = RobotMap.rosTable.getEntry("rosTime");
+    SmartDashboard.putString("alert", "Starting ROS full auto");
   }
 
   // Called repeatedly when this Command is scheduled to run

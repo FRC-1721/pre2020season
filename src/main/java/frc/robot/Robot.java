@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    SmartDashboard.putString("alert", "Robot disabled");
     arcadeDrive.cancel(); // Stop the arcade drive command
   }
 

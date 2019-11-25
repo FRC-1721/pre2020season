@@ -25,6 +25,7 @@ public class ResetDrivetrainEncoders extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
+    SmartDashboard.putString("alert", "Resetting encoders");
     Robot.drivetrain.zeroEncoders();
   }
 
