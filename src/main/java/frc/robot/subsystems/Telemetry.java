@@ -44,6 +44,13 @@ public class Telemetry extends Subsystem {
     //System.out.println("Ran Telemetry.update"); // This is only for debugging!
   }
 
+/**
+ * Call this function to publish an alert to the drivestation
+ */
+  public static void alert(String message) {
+    SmartDashboard.putString("alert", message); // Publish whatever string is passed to key "alert"
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

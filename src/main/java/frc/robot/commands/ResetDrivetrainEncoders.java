@@ -8,8 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.Telemetry;
 
 /**
  * Resets the drivetrain encoders back to 0
@@ -26,7 +26,7 @@ public class ResetDrivetrainEncoders extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    SmartDashboard.putString("alert", "Resetting encoders");
+    Telemetry.alert("Resetting encoders");
     Robot.drivetrain.zeroEncoders();
   }
 

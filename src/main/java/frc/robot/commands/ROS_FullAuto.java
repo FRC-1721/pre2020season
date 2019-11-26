@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Telemetry;
 
 public class ROS_FullAuto extends Command {
 
@@ -38,7 +39,7 @@ public class ROS_FullAuto extends Command {
     coprocessorPort = RobotMap.rosTable.getEntry("coprocessorPort");
     coprocessorStarboard = RobotMap.rosTable.getEntry("coprocessorStarboard");
     rosTime = RobotMap.rosTable.getEntry("rosTime");
-    SmartDashboard.putString("alert", "Starting R O S full autonomous");
+    Telemetry.alert("lapis control started");
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -57,7 +58,7 @@ public class ROS_FullAuto extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    SmartDashboard.putString("alert", "Automatic control was stopped");
+    Telemetry.alert("lapis control was stopped");
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
   }
 
@@ -65,7 +66,7 @@ public class ROS_FullAuto extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    SmartDashboard.putString("alert", "Automatic control was interrupted");
+    Telemetry.alert("lapis control was interrupted");
     end();
   }
 }

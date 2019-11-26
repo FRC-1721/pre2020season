@@ -8,10 +8,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Telemetry;
 
 public class ArcadeDrive extends Command {
   public ArcadeDrive() {
@@ -21,7 +21,7 @@ public class ArcadeDrive extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    SmartDashboard.putString("alert", "Entering manual mode");
+    Telemetry.alert("Entering manual mode");
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -41,7 +41,7 @@ public class ArcadeDrive extends Command {
   @Override
   protected void end() {
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Leave the motors with 0, so we dont race off uncontrollably
-    SmartDashboard.putString("alert", "Exiting manual mode");
+    Telemetry.alert("Exiting manual mode");
   }
 
   // Called when another command which requires one or more of the same
