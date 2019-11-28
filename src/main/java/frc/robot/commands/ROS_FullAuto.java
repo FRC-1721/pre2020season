@@ -71,6 +71,7 @@ public class ROS_FullAuto extends Command {
   @Override
   protected void end() {
     Telemetry.alert("lapis control was stopped");
+    CommandTimeout.stop(); // Stops the timer
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
   }
 
