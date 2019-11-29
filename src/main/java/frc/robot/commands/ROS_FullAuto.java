@@ -30,6 +30,7 @@ public class ROS_FullAuto extends Command {
 
   public ROS_FullAuto() {
     requires(Robot.drivetrain);
+    requires(Robot.ros);
   }
 
   // Called just before this Command runs the first time
