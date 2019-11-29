@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Telemetry;
 
 public class ROS_FullAuto extends Command {
@@ -42,6 +43,7 @@ public class ROS_FullAuto extends Command {
     coprocessorStarboard = RobotMap.rosTable.getEntry("coprocessorStarboard");
     rosTime = RobotMap.rosTable.getEntry("rosTime");
     Telemetry.alert("lapis control started");
+    ROS.spin_RSL(1); // Start RSL
     CommandTimeout.start(); // Start the timer
   }
 
@@ -72,6 +74,7 @@ public class ROS_FullAuto extends Command {
   protected void end() {
     Telemetry.alert("lapis control was stopped");
     CommandTimeout.stop(); // Stops the timer
+    ROS.spin_RSL(0); // Stop RSL
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
   }
 

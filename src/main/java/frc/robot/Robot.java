@@ -22,6 +22,7 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Telemetry;
 
 /**
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
   // Subsystems
   public static Drivetrain drivetrain = new Drivetrain();
   public static Telemetry telemetry = new Telemetry();
+  public static ROS ros = new ROS();
 
   // Commands
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
@@ -77,6 +79,7 @@ public class Robot extends TimedRobot {
     // Define motors
     RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
+    RobotMap.spinningRSLSRX = new TalonSRX(RobotMap.spinningRSLAddress); // Define spinning RSL light
 
     // Boot the coprossesor
     RobotMap.lapis_boot.set(true); // Turn the power on

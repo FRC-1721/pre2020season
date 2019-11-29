@@ -39,10 +39,12 @@ public class RobotMap {
   public static int lapis_dio_port = 0;
 
   // CAN Addresses
+  public static int spinningRSLAddress = 3; // Last Configured: 11/28/2019
   public static int starboardAddress = 2; // Last Configured: Never
   public static int portAddress = 1;  // Last Configured: Never
 
   // TalonSRX Objects
+  public static TalonSRX spinningRSLSRX;
   public static TalonSRX starboardMotor; // These objects represent the motors themselves
   public static TalonSRX portMotor;
 
