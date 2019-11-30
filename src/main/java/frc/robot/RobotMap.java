@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -33,13 +34,14 @@ public class RobotMap {
 
   // ROS
   public static int ROSTimeout = 8;
+  public static Timer CommandTimer;
 
   // Jetson Controls
   public static DigitalOutput lapis_boot;
   public static int lapis_dio_port = 0;
 
   // CAN Addresses
-  public static int spinningRSLAddress = 3; // Last Configured: 11/28/2019
+  public static int spinningRSLAddress = 0; // Last Configured: 11/28/2019
   public static int starboardAddress = 2; // Last Configured: Never
   public static int portAddress = 1;  // Last Configured: Never
 

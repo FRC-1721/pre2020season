@@ -25,7 +25,6 @@ public class ROS_FullAuto extends Command {
   NetworkTableEntry coprocessorPort; // For tank drive
   NetworkTableEntry coprocessorStarboard;
   NetworkTableEntry rosTime; // Is ros time (slow estimate)
-  Timer CommandTimeout;
   double watchdog = 0;
 
   public ROS_FullAuto() {
@@ -36,6 +35,7 @@ public class ROS_FullAuto extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    RobotMap.CommandTimer = new Timer();
     // Define ROS vars
     //robotX = RobotMap.rosTable.getEntry("robotX");
     //robotY = RobotMap.rosTable.getEntry("robotY");
@@ -45,7 +45,6 @@ public class ROS_FullAuto extends Command {
     rosTime = RobotMap.rosTable.getEntry("rosTime");
     Telemetry.alert("lapis control started");
     ROS.spin_RSL(1); // Start RSL
-    CommandTimeout.start(); // Start the timer
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -55,9 +54,9 @@ public class ROS_FullAuto extends Command {
     double port = coprocessorPort.getDouble(0);
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, starboard, port);
     if(watchdog != (starboard + port)){ // Is the command stale?
-      CommandTimeout.reset(); // Reset the timer to 0
+      RobotMap.CommandTimer.reset(); // Reset the timer to 0
     }
-    if(CommandTimeout.get() > RobotMap.ROSTimeout){ // If we've been waiting for over 8 seconds
+    if(RobotMap.CommandTimer.get() > RobotMap.ROSTimeout){ // If we've been waiting for over 8 seconds
       coprocessorPort.setDouble(0); // Reset the values back to 0
       coprocessorStarboard.setDouble(0);
     }
@@ -74,7 +73,7 @@ public class ROS_FullAuto extends Command {
   @Override
   protected void end() {
     Telemetry.alert("lapis control was stopped");
-    CommandTimeout.stop(); // Stops the timer
+    RobotMap.CommandTimer.stop(); // Stops the timer
     ROS.spin_RSL(0); // Stop RSL
     Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
   }
