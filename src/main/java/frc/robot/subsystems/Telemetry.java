@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ResetDrivetrainEncoders;
+import frc.robot.commands.sing;
 
 /**
  * Telemetry is used for delivering data to the drivestation
@@ -21,6 +22,7 @@ public class Telemetry extends Subsystem {
   public Telemetry() {
     // Drivetrain
     SmartDashboard.putData("Reset Encoders", new ResetDrivetrainEncoders());
+    SmartDashboard.putData("Sing", new sing());
   }
 
   public void update() {

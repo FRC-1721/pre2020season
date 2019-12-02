@@ -19,6 +19,10 @@ import frc.robot.RobotMap;
  */
 public class ROS extends Subsystem {
   
+  /**
+   * Set to 1 to spin the advnced RSL
+   * 0 to turn it off.
+   */
   public static void spin_RSL(double spin_speed){
     RobotMap.spinningRSLSRX.set(ControlMode.PercentOutput, spin_speed); // Set to the desired speed
   }

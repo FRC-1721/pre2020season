@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Robot.telemetry.update();
+    Robot.telemetry.update(); // Update all the telemetry
   }
 
   /**
@@ -107,8 +107,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    // Send alert
     Telemetry.alert("Robot disabled");
+
+    // Cancel running commands
     arcadeDrive.cancel(); // Stop the arcade drive command
+    robot_autonomous.cancel(); // Stops the current running autonomous if it was running
+
+    // Saftey
+    ROS.spin_RSL(0); // stop the saftey light
   }
 
   @Override
@@ -117,26 +124,13 @@ public class Robot extends TimedRobot {
   }
 
   /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
+   * Runs only once when autonomous starts
+   * Retreives the current selected auto only
+   * when autonomousInit starts
    */
   @Override
   public void autonomousInit() {
     robot_autonomous = autoChooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
 
     // schedule the autonomous command
     if (robot_autonomous != null) {
@@ -174,6 +168,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    // Saftey
+    ROS.spin_RSL(1); // Spin the saftey light
+
     // Drivetrain
     SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());

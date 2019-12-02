@@ -55,6 +55,7 @@ public class RobotMap {
   public static int driverStick_Port = 0; // The driver station item slot this controler resides in
   public static int driverStick_throaxis = 1; // The axis for thro
   public static int driverStick_yawaxis = 2; // The axis for yaw
+  public static double overideSensitivity = 0.05; // The sensitivity required for the joystick to overide the auto
 
   // Other
   public static int ticksPerMeter = 1000;

@@ -45,6 +45,7 @@ public class Drivetrain extends Subsystem {
     RobotMap.starboardMotor.setSelectedSensorPosition(0, 0, 30);
   }
 
+  public boolean operatorIsOveride(Joystick DriverJoystick){return ((DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis) > RobotMap.overideSensitivity) || (DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis) > RobotMap.overideSensitivity));} // Returns true if the joystick is being moved
   public double getDriveEncoderPort(){return RobotMap.portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
   public double getDriveEncoderStarboard(){return RobotMap.starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
   public double getOverallSpeed(){return (((((RobotMap.starboardMotor.getSelectedSensorVelocity() * RobotMap.portMotor.getSelectedSensorVelocity()) / 2 ) * 10) / RobotMap.ticksPerMeter) * 1.944);} // Returns the average speed of the robot in knots
