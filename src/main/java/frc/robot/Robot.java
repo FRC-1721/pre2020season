@@ -170,9 +170,5 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     // Saftey
     ROS.spin_RSL(1); // Spin the saftey light
-
-    // Drivetrain
-    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
-    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
   }
 }
