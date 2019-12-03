@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
@@ -25,6 +27,24 @@ public class ROS extends Subsystem {
    */
   public static void spin_RSL(double spin_speed){
     RobotMap.spinningRSLSRX.set(ControlMode.PercentOutput, spin_speed); // Set to the desired speed
+  }
+
+  /**
+   * Updates and syncs the ROS data
+   * to the coprossor
+   */
+  public static void update(){
+    // ROS in
+    SmartDashboard.putNumber("ROS Current X Pos",(RobotMap.rosTable.getEntry("robotX")).getDouble(-1)); // The nesting here is a little funny but we're getting an entry in the table and then from that table we are getting a double.
+    SmartDashboard.putNumber("ROS Current Y Pos",(RobotMap.rosTable.getEntry("robotY")).getDouble(-1));
+
+    // ROS out
+    RobotMap.starboardEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderStarboard());
+    RobotMap.portEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderPort());
+
+    // Legacy ROS
+    SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
+    SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
   }
 
   @Override

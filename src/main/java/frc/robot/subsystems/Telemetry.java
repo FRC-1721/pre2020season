@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.commands.sing;
 
@@ -25,25 +24,11 @@ public class Telemetry extends Subsystem {
     SmartDashboard.putData("Sing", new sing());
   }
 
-  public void update() {
+  public static void update() {
     // Drivetrain
     SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
     SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
-
-    // ROS in
-    SmartDashboard.putNumber("ROS Current X Pos",(RobotMap.rosTable.getEntry("robotX")).getDouble(-1)); // The nesting here is a little funny but we're getting an entry in the table and then from that table we are getting a double.
-    SmartDashboard.putNumber("ROS Current Y Pos",(RobotMap.rosTable.getEntry("robotY")).getDouble(-1));
-
-    // ROS out
-    RobotMap.starboardEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderStarboard());
-    RobotMap.portEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderPort());
-
-    // Legacy ROS
-    SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
-    SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
-
-    //System.out.println("Ran Telemetry.update"); // This is only for debugging!
   }
 
 /**

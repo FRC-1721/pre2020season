@@ -96,7 +96,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Robot.telemetry.update(); // Update all the telemetry
+    Telemetry.update(); // Update all the telemetry
+    ROS.update();
   }
 
   /**
