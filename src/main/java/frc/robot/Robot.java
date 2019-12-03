@@ -46,9 +46,8 @@ public class Robot extends TimedRobot {
   // OI
   public static OI m_oi;
 
-
-  Command robot_autonomous; // Autonomous
-  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
+  Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
+  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
 
   /**
    * This function is run when the robot is first started up and should be
