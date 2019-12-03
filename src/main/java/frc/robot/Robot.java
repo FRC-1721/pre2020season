@@ -90,14 +90,11 @@ public class Robot extends TimedRobot {
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
    * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
     Telemetry.update(); // Update all the telemetry
-    ROS.update();
+    ROS.update(); // Update all the ROS
   }
 
   /**
@@ -146,13 +143,14 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
+  /**
+   * Runs once when teleop starts
+   */
   @Override
   public void teleopInit() {
-    if (robot_autonomous != null) { // Stops autonomous
-      robot_autonomous.cancel();
-    }
-    
-    arcadeDrive.start(); // Start the arcade drive command
+    //if (robot_autonomous != null) { // Stops autonomous
+    //  robot_autonomous.cancel();
+    //}
   }
 
   /**
@@ -161,6 +159,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    if (Drivetrain.operatorIsOveride(RobotMap.driverStick)){ // If the operator takes control of the stick
+      arcadeDrive.start(); // Start the arcade drive command
+    }
   }
 
   /**
