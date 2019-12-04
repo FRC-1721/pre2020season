@@ -170,6 +170,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    Telemetry.debug();
+    
     // Saftey
     ROS.spin_RSL(1); // Spin the saftey light
   }

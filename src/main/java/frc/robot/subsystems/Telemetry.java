@@ -30,8 +30,13 @@ public class Telemetry extends Subsystem {
     SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
     SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
+  }
 
-    // Other
+  /**
+   * Put things to be displayed during debug here
+   */
+  public static void debug() {
+    // Debug
     SmartDashboard.putBoolean("Is Overide", Drivetrain.operatorIsOveride(RobotMap.driverStick));
     SmartDashboard.putNumber("Driver Thro", (RobotMap.driverStick.getRawAxis(RobotMap.driverStick_throaxis) * -1 ));
   }

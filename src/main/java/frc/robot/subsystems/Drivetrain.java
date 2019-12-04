@@ -27,6 +27,13 @@ public class Drivetrain extends Subsystem {
 
     starboard.set(ControlMode.PercentOutput, (-1 * thro) + yaw);  // From the inverse of thro, subtract yaw
     port.set(ControlMode.PercentOutput, thro + yaw);  // subtract yaw from thro
+
+    // Spin RSL if reversing
+    if (thro >= 0.1) {
+      ROS.spin_RSL(1);
+    } else {
+      ROS.spin_RSL(0);
+    }
   }
 
   /**
