@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
 
     // Cancel running commands
     arcadeDrive.cancel(); // Stop the arcade drive command
-    robot_autonomous.cancel(); // Stops the current running autonomous if it was running
+    //robot_autonomous.cancel(); // Stops the current running autonomous if it was running
 
     // Saftey
     ROS.spin_RSL(0); // stop the saftey light

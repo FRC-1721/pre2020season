@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.commands.sing;
 
@@ -29,6 +30,10 @@ public class Telemetry extends Subsystem {
     SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
     SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
+
+    // Other
+    SmartDashboard.putBoolean("Is Overide", Drivetrain.operatorIsOveride(RobotMap.driverStick));
+    SmartDashboard.putNumber("Driver Thro", (RobotMap.driverStick.getRawAxis(RobotMap.driverStick_throaxis) * -1 ));
   }
 
 /**
