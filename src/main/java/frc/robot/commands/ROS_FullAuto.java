@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
@@ -59,6 +60,7 @@ public class ROS_FullAuto extends Command {
     if(RobotMap.CommandTimer.get() > RobotMap.ROSTimeout){ // If we've been waiting for over 8 seconds
       coprocessorPort.setDouble(0); // Reset the values back to 0
       coprocessorStarboard.setDouble(0);
+      SmartDashboard.putString("timeout", "yes");
     }
     watchdog = starboard + port; // This value will hold the previous command
   }

@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
     RobotMap.rosTable = RobotMap.networkTableInst.getTable(RobotMap.rosTablename); // Get the table ros
     RobotMap.starboardEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.starboardEncoderName); // Get the writable entries
     RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
+    RobotMap.rosIndex = RobotMap.rosTable.getEntry(RobotMap.rosIndexName);
 
     // Define IO
     RobotMap.lapis_boot = new DigitalOutput(RobotMap.lapis_dio_port);
@@ -171,7 +172,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     Telemetry.debug();
-    
+
     // Saftey
     ROS.spin_RSL(1); // Spin the saftey light
   }

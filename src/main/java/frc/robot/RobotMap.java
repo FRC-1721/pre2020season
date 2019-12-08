@@ -28,9 +28,11 @@ public class RobotMap {
   public static NetworkTable rosTable; // The table object
   public static NetworkTableEntry starboardEncoderEntry; // An entry objecy
   public static NetworkTableEntry portEncoderEntry;
+  public static NetworkTableEntry rosIndex;
   public static String rosTablename = "ROS"; // The string name of the table
   public static String starboardEncoderName = "Starboard";
   public static String portEncoderName = "Port";
+  public static String rosIndexName = "rosIndex";
 
   // ROS
   public static int ROSTimeout = 8;

@@ -20,7 +20,8 @@ import frc.robot.RobotMap;
  * directly controled by ROS
  */
 public class ROS extends Subsystem {
-  
+  public static int rosIndex = 1;
+
   /**
    * Set to 1 to spin the advnced RSL
    * 0 to turn it off.
@@ -41,10 +42,17 @@ public class ROS extends Subsystem {
     // ROS out
     RobotMap.starboardEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderStarboard());
     RobotMap.portEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderPort());
+    RobotMap.rosIndex.setNumber(rosIndex);
 
     // Legacy ROS
     SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
     SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
+
+    // Increase the Index value
+    rosIndex = rosIndex + 1;
+    if (rosIndex > 255) {
+      rosIndex = 1;
+    }
   }
 
   @Override
