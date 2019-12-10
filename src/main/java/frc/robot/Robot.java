@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
     // Subsystems
     drivetrain.init();
     ros.init();
+    telemetry.init();
 
     // Define SmartDashboard widgets
     autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
@@ -83,7 +84,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Telemetry.update(); // Update all the telemetry
     ros.update(); // Update all the ROS
   }
 

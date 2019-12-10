@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -18,10 +19,17 @@ import frc.robot.commands.sing;
  * Telemetry is used for delivering data to the drivestation
  */
 public class Telemetry extends Subsystem {
+  private static Notifier telemetry_notifier;
 
-  public Telemetry() {
+  public void init() {
+    // Notifier
+    telemetry_notifier = new Notifier(Telemetry::update);
+    telemetry_notifier.startPeriodic(0.02); // Start a notifier witch will run telemetry every 0.02 seconds
+
     // Drivetrain
     SmartDashboard.putData("Reset Encoders", new ResetDrivetrainEncoders());
+
+    //Other
     SmartDashboard.putData("Sing", new sing());
   }
 
