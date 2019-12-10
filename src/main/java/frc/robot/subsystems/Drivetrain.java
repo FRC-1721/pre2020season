@@ -62,7 +62,10 @@ public class Drivetrain extends Subsystem {
    * with the driver stick
    */
   public static void flyByWireB(TalonSRX starboard, TalonSRX port, Joystick DriverJoystick){
+    double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
+    double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
+    flyWithWiresA(((-1 * thro) + yaw), (thro + yaw)); // Send values to FlyWithWiresA
   }
 
   /**
