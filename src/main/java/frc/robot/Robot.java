@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -71,9 +69,6 @@ public class Robot extends TimedRobot {
 
     // Define Joysticks
     RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
-
-    // Define motors
-    RobotMap.spinningRSLSRX = new TalonSRX(RobotMap.spinningRSLAddress); // Define spinning RSL light
 
     // Boot the coprossesor
     RobotMap.lapis_boot.set(true); // Turn the power on

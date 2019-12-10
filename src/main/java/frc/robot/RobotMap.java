@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -39,18 +37,12 @@ public class RobotMap {
   public static int starboardAddress = 2; // Last Configured: Never
   public static int portAddress = 1;  // Last Configured: Never
 
-  // TalonSRX Objects
-  public static TalonSRX spinningRSLSRX;
-
   // Driver Stick Information
   public static Joystick driverStick; // This object represents the joystick itself
   public static int driverStick_Port = 0; // The driver station item slot this controler resides in
   public static int driverStick_throaxis = 1; // The axis for thro
   public static int driverStick_yawaxis = 2; // The axis for yaw
   public static double overideSensitivity = 0.05; // The sensitivity required for the joystick to overide the auto
-
-  // Other
-  public static int ticksPerMeter = 1000;
 
   // Funny
   public static String startupSound = "[:phoneme on][dah<500,26>dah<180,14>dah<180,21>dah<500,19>dah<180,26>dah<500,21>]";

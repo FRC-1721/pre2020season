@@ -9,4 +9,8 @@ public class Constants {
     public static String starboardEncoderName = "Starboard";
     public static String portEncoderName = "Port";
     public static String rosIndexName = "rosIndex";
+
+    // Other
+    public static int ticksPerMeter = 1000;
+    public static int rpmPerMeter = 100;
 }

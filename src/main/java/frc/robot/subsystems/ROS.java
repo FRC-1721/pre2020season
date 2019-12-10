@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -23,7 +24,11 @@ import frc.robot.RobotMap;
  * directly controled by ROS
  */
 public class ROS extends Subsystem {
+  // Initilize counters
   public static int rosIntex = 1;
+
+  // TalonSRX Objects
+  public static TalonSRX spinningRSLSRX;
 
   // Setup networkTables
   NetworkTableEntry starboardEncoderEntry; // An entry objecy
@@ -34,6 +39,10 @@ public class ROS extends Subsystem {
    * Setup things related to ROS
    */
   public void init() {
+    // Saftey
+    spinningRSLSRX = new TalonSRX(RobotMap.spinningRSLAddress); // Define spinning RSL light
+
+    // Network tables
     RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
     RobotMap.rosTable = RobotMap.networkTableInst.getTable(Constants.rosTablename); // Get the table ros
     starboardEncoderEntry = RobotMap.rosTable.getEntry(Constants.starboardEncoderName); // Get the writable entries
@@ -46,7 +55,7 @@ public class ROS extends Subsystem {
    * 0 to turn it off.
    */
   public static void spin_RSL(double spin_speed){
-    RobotMap.spinningRSLSRX.set(ControlMode.PercentOutput, spin_speed); // Set to the desired speed
+    spinningRSLSRX.set(ControlMode.PercentOutput, spin_speed); // Set to the desired speed
   }
 
   /**

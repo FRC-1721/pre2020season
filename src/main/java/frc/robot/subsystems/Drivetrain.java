@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 /**
@@ -79,7 +80,7 @@ public class Drivetrain extends Subsystem {
   public static boolean operatorIsOveride(Joystick DriverJoystick){return (((DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis) * -1) > RobotMap.overideSensitivity) || (DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis) > RobotMap.overideSensitivity));} // Returns true if the joystick is being moved
   public double getDriveEncoderPort(){return portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
   public double getDriveEncoderStarboard(){return starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
-  public double getOverallSpeed(){return (((((starboardMotor.getSelectedSensorVelocity() * portMotor.getSelectedSensorVelocity()) / 2 ) * 10) / RobotMap.ticksPerMeter) * 1.944);} // Returns the average speed of the robot in knots
+  public double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) / Constants.rpmPerMeter) * 1.944;} // Returns the average speed of the robot in knots
 
   @Override
   public void initDefaultCommand() {
