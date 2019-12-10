@@ -10,3 +10,5 @@ Notes/Tips:
 * Make a command for everything
 * Telemetry.java is for telemetry data like switch positions and encoder counts
 * Please use RobotMap for global objects and espeically mapping variables, Constants.java is for PID constants and other fine tune settings.
+
+Install ROS in the code: http://wiki.ros.org/rosjava/Tutorials/kinetic/Installation this guide
