@@ -53,7 +53,7 @@ public class ROS_FullAuto extends Command {
   protected void execute() {
     double starboard = coprocessorStarboard.getDouble(0);
     double port = coprocessorPort.getDouble(0);
-    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, starboard, port);
+    Drivetrain.flyWithWiresA(starboard, port);
     if(watchdog != (starboard + port)){ // Is the command stale?
       RobotMap.CommandTimer.reset(); // Reset the timer to 0
     }
@@ -77,7 +77,7 @@ public class ROS_FullAuto extends Command {
     Telemetry.alert("lapis control was stopped");
     RobotMap.CommandTimer.stop(); // Stops the timer
     ROS.spin_RSL(0); // Stop RSL
-    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Shut off motors
+    Drivetrain.flyWithWiresA(0, 0); // Shut off motors
   }
 
   // Called when another command which requires one or more of the same

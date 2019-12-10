@@ -9,7 +9,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -34,9 +33,9 @@ import frc.robot.subsystems.Telemetry;
  */
 public class Robot extends TimedRobot {
   // Subsystems
-  public static Drivetrain drivetrain = new Drivetrain();
-  public static Telemetry telemetry = new Telemetry();
-  public static ROS ros = new ROS();
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Telemetry telemetry = new Telemetry();
+  public static final ROS ros = new ROS();
 
   // Commands
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
@@ -55,17 +54,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Subsystems
+    drivetrain.init();
+    ros.init();
+
     // Define SmartDashboard widgets
     autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
-
-    // Setup networkTables
-    RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
-    RobotMap.rosTable = RobotMap.networkTableInst.getTable(RobotMap.rosTablename); // Get the table ros
-    RobotMap.starboardEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.starboardEncoderName); // Get the writable entries
-    RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
-    RobotMap.rosIndex = RobotMap.rosTable.getEntry(RobotMap.rosIndexName);
 
     // Define IO
     RobotMap.lapis_boot = new DigitalOutput(RobotMap.lapis_dio_port);
@@ -77,8 +73,6 @@ public class Robot extends TimedRobot {
     RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
 
     // Define motors
-    RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
-    RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
     RobotMap.spinningRSLSRX = new TalonSRX(RobotMap.spinningRSLAddress); // Define spinning RSL light
 
     // Boot the coprossesor
@@ -95,7 +89,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Telemetry.update(); // Update all the telemetry
-    ROS.update(); // Update all the ROS
+    ros.update(); // Update all the ROS
   }
 
   /**

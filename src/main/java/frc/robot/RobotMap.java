@@ -10,7 +10,6 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,14 +24,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class RobotMap {
   // NetworkTables
   public static NetworkTableInstance networkTableInst; // The instance of networktables (system wide)
-  public static NetworkTable rosTable; // The table object
-  public static NetworkTableEntry starboardEncoderEntry; // An entry objecy
-  public static NetworkTableEntry portEncoderEntry;
-  public static NetworkTableEntry rosIndex;
-  public static String rosTablename = "ROS"; // The string name of the table
-  public static String starboardEncoderName = "Starboard";
-  public static String portEncoderName = "Port";
-  public static String rosIndexName = "rosIndex";
+  public static NetworkTable rosTable; // The table object  
 
   // ROS
   public static int ROSTimeout = 8;
@@ -49,8 +41,6 @@ public class RobotMap {
 
   // TalonSRX Objects
   public static TalonSRX spinningRSLSRX;
-  public static TalonSRX starboardMotor; // These objects represent the motors themselves
-  public static TalonSRX portMotor;
 
   // Driver Stick Information
   public static Joystick driverStick; // This object represents the joystick itself

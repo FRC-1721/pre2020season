@@ -28,7 +28,7 @@ public class ArcadeDrive extends Command {
   @Override
   protected void execute() {
     // Pass robotmap variables to the drivetrain manual drive method
-    Drivetrain.flyByWireA(RobotMap.starboardMotor, RobotMap.portMotor, RobotMap.driverStick);
+    Drivetrain.flyByWireA(RobotMap.driverStick);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +40,7 @@ public class ArcadeDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Drivetrain.flyWithWiresA(RobotMap.starboardMotor, RobotMap.portMotor, 0, 0); // Leave the motors with 0, so we dont race off uncontrollably
+    Drivetrain.flyWithWiresA(0, 0); // Leave the motors with 0, so we dont race off uncontrollably
     Telemetry.alert("Exiting manual mode");
   }
 
