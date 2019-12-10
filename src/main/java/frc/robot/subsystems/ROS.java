@@ -65,8 +65,8 @@ public class ROS extends Subsystem {
     rosIndex = RobotMap.rosTable.getEntry(Constants.rosIndexName);
 
     // Notifier
-    ros_notifier = new Notifier(ROS::update);
-    ros_notifier.startPeriodic(0.01); // Start a notifier witch will run the ros update
+    ros_notifier = new Notifier(ROS::update); // Set the ros_notifer to update the command update, in the package ros
+    ros_notifier.startPeriodic(0.01); // Start the ros notifer
   }
 
   /**
