@@ -4,6 +4,8 @@ package frc.robot;
  * Constants and tuning values
  */
 public class Constants {
+    // ROS other data
+    public static double rosUpdateFrequency = 0.02;
     // ROS Name Data
     public static String rosTablename = "ROS"; // The string name of the table
     public static String starboardEncoderName = "Starboard";

@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -35,6 +36,9 @@ public class ROS extends Subsystem {
   NetworkTableEntry portEncoderEntry;
   NetworkTableEntry rosIndex;
 
+  // Initialize noifiers
+  private static Notifier ros_notifier;
+
   /**
    * Setup things related to ROS
    */
@@ -48,6 +52,10 @@ public class ROS extends Subsystem {
     starboardEncoderEntry = RobotMap.rosTable.getEntry(Constants.starboardEncoderName); // Get the writable entries
     portEncoderEntry = RobotMap.rosTable.getEntry(Constants.portEncoderName);
     rosIndex = RobotMap.rosTable.getEntry(Constants.rosIndexName);
+
+    // Notifier
+    ros_notifier = new Notifier(Telemetry::update);
+    ros_notifier.startPeriodic(0.02); // Start a notifier witch will run the ros update
   }
 
   /**
