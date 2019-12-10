@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -29,7 +28,6 @@ public class RobotMap {
   public static Timer CommandTimer;
 
   // Jetson Controls
-  public static DigitalOutput lapis_boot;
   public static int lapis_dio_port = 0;
 
   // CAN Addresses

@@ -12,7 +12,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -26,15 +28,18 @@ import frc.robot.RobotMap;
  */
 public class ROS extends Subsystem {
   // Initilize counters
-  public static int rosIntex = 1;
+  private static int rosIntex = 1;
+
+  // Initilize dio ports
+  private static DigitalOutput lapis_boot;
 
   // TalonSRX Objects
-  public static TalonSRX spinningRSLSRX;
+  private static TalonSRX spinningRSLSRX;
 
   // Setup networkTables
-  NetworkTableEntry starboardEncoderEntry; // An entry objecy
-  NetworkTableEntry portEncoderEntry;
-  NetworkTableEntry rosIndex;
+  private static NetworkTableEntry starboardEncoderEntry; // An entry objecy
+  private static NetworkTableEntry portEncoderEntry;
+  private static NetworkTableEntry rosIndex;
 
   // Initialize noifiers
   private static Notifier ros_notifier;
@@ -46,6 +51,12 @@ public class ROS extends Subsystem {
     // Saftey
     spinningRSLSRX = new TalonSRX(RobotMap.spinningRSLAddress); // Define spinning RSL light
 
+    // Jetson Boot
+    lapis_boot = new DigitalOutput(RobotMap.lapis_dio_port);
+    lapis_boot.set(true); // Turn the power on
+    Timer.delay(0.5);
+    lapis_boot.set(false); // Turn the power off
+
     // Network tables
     RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
     RobotMap.rosTable = RobotMap.networkTableInst.getTable(Constants.rosTablename); // Get the table ros
@@ -54,7 +65,7 @@ public class ROS extends Subsystem {
     rosIndex = RobotMap.rosTable.getEntry(Constants.rosIndexName);
 
     // Notifier
-    ros_notifier = new Notifier(Telemetry::update);
+    ros_notifier = new Notifier(ROS::update);
     ros_notifier.startPeriodic(0.02); // Start a notifier witch will run the ros update
   }
 
@@ -70,7 +81,7 @@ public class ROS extends Subsystem {
    * Updates and syncs the ROS data
    * to the coprossor
    */
-  public void update(){
+  public static void update(){
     // ROS in
     SmartDashboard.putNumber("ROS Current X Pos",(RobotMap.rosTable.getEntry("robotX")).getDouble(-1)); // The nesting here is a little funny but we're getting an entry in the table and then from that table we are getting a double.
     SmartDashboard.putNumber("ROS Current Y Pos",(RobotMap.rosTable.getEntry("robotY")).getDouble(-1));

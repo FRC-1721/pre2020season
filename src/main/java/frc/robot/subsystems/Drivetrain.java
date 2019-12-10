@@ -27,6 +27,10 @@ public class Drivetrain extends Subsystem {
    * Put commands here that are specific to the drivetrain
    */
   public void init(){
+    // Joysticks
+    RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
+    
+    // Motors
     starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
     starboardMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); // Select the feedback sensor

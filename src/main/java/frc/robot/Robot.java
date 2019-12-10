@@ -7,10 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -53,28 +50,17 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Subsystems
-    drivetrain.init();
-    ros.init();
-    telemetry.init();
+    drivetrain.init(); // Init Drivetrain
+    ros.init(); // Init ROS
+    telemetry.init(); // Init telemetry
 
     // Define SmartDashboard widgets
     autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
 
-    // Define IO
-    RobotMap.lapis_boot = new DigitalOutput(RobotMap.lapis_dio_port);
-
     // Define OI
     m_oi = new OI();  
-
-    // Define Joysticks
-    RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
-
-    // Boot the coprossesor
-    RobotMap.lapis_boot.set(true); // Turn the power on
-    Timer.delay(0.5);
-    RobotMap.lapis_boot.set(false); // Turn the power off
   }
 
   /**
