@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.FBWB;
 import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.subsystems.Drivetrain;
@@ -34,14 +35,19 @@ public class Robot extends TimedRobot {
 
   // Commands
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
+  public static FBWB FBWB = new FBWB();
   public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
   public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
 
   // OI
   public static OI m_oi;
 
+  // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
   SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
+
+  Command handling_mode; // Command object, will be populated by handling chooser
+  SendableChooser<Command> handlingChooser = new SendableChooser<>(); // Create a new chooser for holding the handling mode
 
   /**
    * This function is run when the robot is first started up and should be
@@ -58,6 +64,10 @@ public class Robot extends TimedRobot {
     autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
+
+    handlingChooser.setDefaultOption("FBWA", new ArcadeDrive());
+    handlingChooser.addOption("FBWB (FWW)", new FBWB());
+    SmartDashboard.putData("Handling Mode", handlingChooser);
 
     // Define OI
     m_oi = new OI();  

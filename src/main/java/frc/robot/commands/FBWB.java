@@ -13,22 +13,21 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Telemetry;
 
-public class ArcadeDrive extends Command {
-  public ArcadeDrive() {
+public class FBWB extends Command {
+  public FBWB() {
     requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Telemetry.alert("Entering manual mode A");
+    Telemetry.alert("Entering manual mode B");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // Pass robotmap variables to the drivetrain manual drive method
-    Drivetrain.flyByWireA(RobotMap.driverStick);
+    Drivetrain.flyByWireB(RobotMap.driverStick);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -49,6 +48,5 @@ public class ArcadeDrive extends Command {
   @Override
   protected void interrupted() {
     Telemetry.alert("Arcade Drive inturupted");
-    end();
   }
 }

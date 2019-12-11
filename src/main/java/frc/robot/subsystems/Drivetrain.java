@@ -41,6 +41,7 @@ public class Drivetrain extends Subsystem {
 
   /**
    * This function uses manual control from a joystick.
+   * @author Joe
    */
   public static void flyByWireA(Joystick DriverJoystick){
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
@@ -58,10 +59,10 @@ public class Drivetrain extends Subsystem {
   }
   
   /**
-   * Uses the flyWithWires functon, mainly for testing
-   * with the driver stick
+   * This function turns joystick commands into commands for FWWA to use
+   * @author Joe
    */
-  public static void flyByWireB(TalonSRX starboard, TalonSRX port, Joystick DriverJoystick){
+  public static void flyByWireB(Joystick DriverJoystick){
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
     double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
@@ -70,6 +71,7 @@ public class Drivetrain extends Subsystem {
 
   /**
    * This function uses digital imput to control the robot from a coprosser.
+   * @author Joe
    */
   public static void flyWithWiresA(double starboardSpeed, double portSpeed){
     starboardMotor.set(ControlMode.Velocity, starboardSpeed);  // Set to the target speed
@@ -78,6 +80,7 @@ public class Drivetrain extends Subsystem {
 
   /**
    * Zero the drive encoders.
+   * @author Joe
    */
   public void zeroEncoders(){
     portMotor.setSelectedSensorPosition(0, 0, 30); // Set encoder value, set loop (0 for primary, 1 for aux), set timeout to report error (in ms)
