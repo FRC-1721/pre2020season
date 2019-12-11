@@ -23,6 +23,7 @@ import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
+import frc.robot.subsystems.ROSAdvanced;
 import frc.robot.subsystems.Telemetry;
 
 /**
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain drivetrain = new Drivetrain();
   public static Telemetry telemetry = new Telemetry();
   public static ROS ros = new ROS();
+  public static ROSAdvanced rosadvanced = new ROSAdvanced();
 
   // Commands
   public static ArcadeDrive arcadeDrive = new ArcadeDrive();
@@ -85,6 +87,9 @@ public class Robot extends TimedRobot {
     RobotMap.lapis_boot.set(true); // Turn the power on
     Timer.delay(0.5);
     RobotMap.lapis_boot.set(false); // Turn the power off
+
+    // ROS Advanced
+    //rosadvanced();
   }
 
   /**
