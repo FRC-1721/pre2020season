@@ -14,7 +14,7 @@
  * the License.
  */
 
-package frc.robot.subsystems;
+package frc.robot;
 
 import org.ros.concurrent.CancellableLoop;
 import org.ros.namespace.GraphName;
@@ -29,6 +29,16 @@ import org.ros.node.topic.Publisher;
  * @author damonkohler@google.com (Damon Kohler)
  */
 public class ROSAdvanced extends AbstractNodeMain {
+  private String topic_name;
+
+  public void Talker() {
+    topic_name = "chatter";
+  }
+
+  public void Talker(String topic)
+  {
+    topic_name = topic;
+  }
 
   @Override
   public GraphName getDefaultNodeName() {
@@ -38,7 +48,7 @@ public class ROSAdvanced extends AbstractNodeMain {
   @Override
   public void onStart(final ConnectedNode connectedNode) {
     final Publisher<std_msgs.String> publisher =
-        connectedNode.newPublisher("chatter", std_msgs.String._TYPE);
+        connectedNode.newPublisher(topic_name, std_msgs.String._TYPE);
     // This CancellableLoop will be canceled automatically when the node shuts
     // down.
     connectedNode.executeCancellableLoop(new CancellableLoop() {

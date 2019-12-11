@@ -23,7 +23,7 @@ import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
-import frc.robot.subsystems.ROSAdvanced;
+import frc.robot.ROSAdvanced;
 import frc.robot.subsystems.Telemetry;
 
 /**
