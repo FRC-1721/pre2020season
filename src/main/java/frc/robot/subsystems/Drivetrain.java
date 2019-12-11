@@ -105,6 +105,15 @@ public class Drivetrain extends Subsystem {
   }
 
   /**
+   * This function uses digital imput to control the robot from a coprosser (percentage output)
+   * @author Joe
+   */
+  public static void flyWithWiresB(double starboardSpeed, double portSpeed){
+    starboardMotor.set(ControlMode.PercentOutput, starboardSpeed);  // Set to the target speed
+    portMotor.set(ControlMode.PercentOutput, portSpeed);  // Set to the target speed
+  }
+
+  /**
    * Zero the drive encoders.
    * @author Joe
    */

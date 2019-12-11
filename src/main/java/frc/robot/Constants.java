@@ -25,6 +25,7 @@ public class Constants {
     // Paramater config value
     public static final int kTimeoutMs = 30;
     
-    // Adjust these 
-    public static final Gains kGains = new Gains(0.25, 0, 0, 1.0, 0, 1.0); // P, I, D, F, Zone, Peak output
+    // Actual PIDs
+    public static double kfCalculation = (0.7 * 1023) / 35; // (<optimal output speed> * 1023) / measured velocity
+    public static final Gains kGains = new Gains(0.25, 0, 0, kfCalculation, 0, 1.0); // P, I, D, F, Zone, Peak output
 }
