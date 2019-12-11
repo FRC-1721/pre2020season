@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.FBWA;
 import frc.robot.commands.FBWB;
 import frc.robot.commands.ROS_FullAuto;
 import frc.robot.commands.ResetDrivetrainEncoders;
@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   public static final ROS ros = new ROS();
 
   // Commands
-  public static ArcadeDrive arcadeDrive = new ArcadeDrive();
+  public static FBWA FBWA = new FBWA();
   public static FBWB FBWB = new FBWB();
   public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
   public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
 
-    handlingChooser.setDefaultOption("FBWA", new ArcadeDrive());
+    handlingChooser.setDefaultOption("FBWA", new FBWA());
     handlingChooser.addOption("FBWB (FWW)", new FBWB());
     SmartDashboard.putData("Handling Mode", handlingChooser);
 
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
     Telemetry.alert("Robot disabled");
 
     // Cancel running commands
-    arcadeDrive.cancel(); // Stop the arcade drive command
+    FBWA.cancel(); // Stop the arcade drive command
     //robot_autonomous.cancel(); // Stops the current running autonomous if it was running
 
     // Saftey
@@ -146,7 +146,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     if (Drivetrain.operatorIsOveride(RobotMap.driverStick)){ // If the operator takes control of the stick
-      arcadeDrive.start(); // Start the arcade drive command
+      FBWA.start(); // Start the arcade drive command
     }
   }
 

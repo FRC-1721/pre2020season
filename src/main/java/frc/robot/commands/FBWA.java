@@ -13,8 +13,8 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Telemetry;
 
-public class ArcadeDrive extends Command {
-  public ArcadeDrive() {
+public class FBWA extends Command {
+  public FBWA() {
     requires(Robot.drivetrain);
   }
 
@@ -41,14 +41,14 @@ public class ArcadeDrive extends Command {
   @Override
   protected void end() {
     Drivetrain.flyWithWiresA(0, 0); // Leave the motors with 0, so we dont race off uncontrollably
-    Telemetry.alert("Exiting manual mode");
+    Telemetry.alert("Exiting manual mode A");
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Telemetry.alert("Arcade Drive inturupted");
+    Telemetry.alert("FBWA Was inturupted");
     end();
   }
 }

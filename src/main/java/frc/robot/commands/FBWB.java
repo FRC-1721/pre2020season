@@ -40,13 +40,13 @@ public class FBWB extends Command {
   @Override
   protected void end() {
     Drivetrain.flyWithWiresA(0, 0); // Leave the motors with 0, so we dont race off uncontrollably
-    Telemetry.alert("Exiting manual mode");
+    Telemetry.alert("Exiting manual mode B");
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Telemetry.alert("Arcade Drive inturupted");
+    Telemetry.alert("FBWB Was interrupted");
   }
 }
