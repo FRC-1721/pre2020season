@@ -146,7 +146,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     if (Drivetrain.operatorIsOveride(RobotMap.driverStick)){ // If the operator takes control of the stick
-      FBWA.start(); // Start the arcade drive command
+      handling_mode.start(); // Start the arcade drive command
     }
   }
 

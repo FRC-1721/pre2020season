@@ -48,7 +48,7 @@ public class Drivetrain extends Subsystem {
     double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
     starboardMotor.set(ControlMode.PercentOutput, (-1 * thro) + yaw);  // From the inverse of thro, subtract yaw
-    portMotor.set(ControlMode.PercentOutput, -(thro + yaw));  // subtract yaw from thro
+    portMotor.set(ControlMode.PercentOutput, (thro + yaw) * -1);  // subtract yaw from thro
 
     // Spin RSL if reversing
     if (thro >= 0.1) {
