@@ -66,7 +66,7 @@ public class ROS extends Subsystem {
 
     // Notifier
     ros_notifier = new Notifier(ROS::update); // Set the ros_notifer to update the command update, in the package ros
-    ros_notifier.startPeriodic(0.01); // Start the ros notifer
+    ros_notifier.startPeriodic(0.05); // Start the ros notifer
   }
 
   /**

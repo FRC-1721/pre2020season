@@ -133,9 +133,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-    //if (robot_autonomous != null) { // Stops autonomous
-    //  robot_autonomous.cancel();
-    //}
+    handling_mode = handlingChooser.getSelected();
   }
 
   /**

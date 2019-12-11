@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
@@ -33,15 +34,39 @@ public class Drivetrain extends Subsystem {
     // Motors
     starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
+
+    // PID
     starboardMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); // Select the feedback sensor
     portMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     portMotor.setInverted(true); // Set inverted (does not affect sensor phase)
     starboardMotor.setInverted(false);
+
+    // Phase
+    portMotor.setSensorPhase(false);
+    starboardMotor.setSensorPhase(false);
+    
+    // PID Values
+    starboardMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs);
+    starboardMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains.kI, Constants.kTimeoutMs);
+    starboardMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains.kD, Constants.kTimeoutMs);
+    starboardMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains.kF, Constants.kTimeoutMs);
+    starboardMotor.config_IntegralZone(Constants.kPIDLoopIdx, Constants.kGains.kIzone, Constants.kTimeoutMs);
+
+    portMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs);
+    portMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains.kI, Constants.kTimeoutMs);
+    portMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains.kD, Constants.kTimeoutMs);
+    portMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains.kF, Constants.kTimeoutMs);
+    portMotor.config_IntegralZone(Constants.kPIDLoopIdx, Constants.kGains.kIzone, Constants.kTimeoutMs);
+
+    // Init Encoders
+    portMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    starboardMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
   }
 
   /**
    * This function uses manual control from a joystick.
    * @author Joe
+   * @author Travis
    */
   public static void flyByWireA(Joystick DriverJoystick){
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
@@ -74,8 +99,9 @@ public class Drivetrain extends Subsystem {
    * @author Joe
    */
   public static void flyWithWiresA(double starboardSpeed, double portSpeed){
-    starboardMotor.set(ControlMode.Velocity, starboardSpeed);  // Set to the target speed
-    portMotor.set(ControlMode.Velocity, portSpeed);  // Set to the target speed
+    starboardMotor.set(ControlMode.Velocity, (starboardSpeed * 20));  // Set to the target speed
+    portMotor.set(ControlMode.Velocity, (portSpeed * 20));  // Set to the target speed
+    SmartDashboard.putNumber("Port Speed", portSpeed * 20);
   }
 
   /**

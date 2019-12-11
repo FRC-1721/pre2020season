@@ -24,7 +24,7 @@ public class Telemetry extends Subsystem {
   public void init() {
     // Notifier
     telemetry_notifier = new Notifier(Telemetry::update); // Create a notifier that will update the update command in package Telemetry
-    telemetry_notifier.startPeriodic(0.1); // Start a notifier witch will run telemetry every 0.02 seconds
+    telemetry_notifier.startPeriodic(0.2); // Start a notifier witch will run telemetry every 0.02 seconds
 
     // Drivetrain
     SmartDashboard.putData("Reset Encoders", new ResetDrivetrainEncoders());
