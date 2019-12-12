@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
@@ -99,9 +98,8 @@ public class Drivetrain extends Subsystem {
    * @author Joe
    */
   public static void flyWithWiresA(double starboardSpeed, double portSpeed){
-    starboardMotor.set(ControlMode.Velocity, (starboardSpeed * 20));  // Set to the target speed
-    portMotor.set(ControlMode.Velocity, (portSpeed * 20));  // Set to the target speed
-    SmartDashboard.putNumber("Port Speed", portSpeed * 20);
+    starboardMotor.set(ControlMode.Velocity, (starboardSpeed * Constants.ticksPerMeter) / 10);  // Number of ticks per 
+    portMotor.set(ControlMode.Velocity, (portSpeed * Constants.ticksPerMeter) / 10);  // Set to the target speed
   }
 
   /**
