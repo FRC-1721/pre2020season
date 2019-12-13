@@ -25,6 +25,7 @@ public class Drivetrain extends Subsystem {
 
   /**
    * Put commands here that are specific to the drivetrain
+   * @author Joe
    */
   public void init(){
     // Joysticks
@@ -34,9 +35,7 @@ public class Drivetrain extends Subsystem {
     starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
     portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
 
-    // PID
-    starboardMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); // Select the feedback sensor
-    portMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    // Direction
     portMotor.setInverted(true); // Set inverted (does not affect sensor phase)
     starboardMotor.setInverted(false);
 
@@ -66,6 +65,7 @@ public class Drivetrain extends Subsystem {
    * This function uses manual control from a joystick.
    * @author Joe
    * @author Travis
+   * @author Khan
    */
   public static void flyByWireA(Joystick DriverJoystick){
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
@@ -123,7 +123,7 @@ public class Drivetrain extends Subsystem {
   public static boolean operatorIsOveride(Joystick DriverJoystick){return ((Math.abs(DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis)) > RobotMap.overideSensitivity) || (Math.abs(DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis)) > RobotMap.overideSensitivity));} // Returns true if the joystick is being moved
   public double getDriveEncoderPort(){return portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
   public double getDriveEncoderStarboard(){return starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
-  public double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) / Constants.rpmPerMeter) * 1.944;} // Returns the average speed of the robot in knots
+  public double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) * 10) / Constants.ticksPerMeter;} // Returns the average speed of the robot in knots
 
   @Override
   public void initDefaultCommand() {

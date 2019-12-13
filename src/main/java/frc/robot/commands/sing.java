@@ -12,11 +12,13 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.Telemetry;
 
 /**
- * Add your docs here.
+ * The sing command
+ * @author Joe
  */
 public class sing extends InstantCommand {
   /**
-   * Add your docs here.
+   * Run this to make the robot sing
+   * @author Joe
    */
   public sing() {
     super();

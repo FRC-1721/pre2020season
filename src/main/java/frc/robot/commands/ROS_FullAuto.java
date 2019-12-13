@@ -17,6 +17,10 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Telemetry;
 
+/**
+ * Slaves all control to the jetson
+ * @author Joe
+ */
 public class ROS_FullAuto extends Command {
 
   // ROS Variables
