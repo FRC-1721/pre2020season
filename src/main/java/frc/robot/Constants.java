@@ -13,7 +13,7 @@ public class Constants {
     public static String rosIndexName = "rosIndex";
 
     // Other
-    public static int ticksPerMeter = 1000;
+    public static int ticksPerMeter = 10000; // Calibrated 12/16/2019
     public static int rpmPerMeter = 100;
 
     // PID Data slot (0-4)
@@ -26,6 +26,6 @@ public class Constants {
     public static final int kTimeoutMs = 30;
     
     // Actual PIDs
-    public static double kfCalculation = (0.7 * 1023) / 35; // (<optimal output speed> * 1023) / measured velocity
-    public static final Gains kGains = new Gains(0.25, 0, 0, kfCalculation, 0, 1.0); // P, I, D, F, Zone, Peak output
+    public static float kfCalculation = (1.0f * 1023.0f) / 3000.0f; // (<optimal output speed> * 1023) / measured velocity
+    public static final Gains kGains = new Gains(0.125, 0, 0, kfCalculation, 0, 1.0); // P, I, D, F, Zone, Peak output
 }

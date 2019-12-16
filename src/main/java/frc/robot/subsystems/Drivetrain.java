@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
@@ -40,7 +41,7 @@ public class Drivetrain extends Subsystem {
     starboardMotor.setInverted(false);
 
     // Phase
-    portMotor.setSensorPhase(false);
+    portMotor.setSensorPhase(true);
     starboardMotor.setSensorPhase(false);
     
     // PID Values
@@ -90,7 +91,7 @@ public class Drivetrain extends Subsystem {
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
     double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
 
-    flyWithWiresA(((-1 * thro) + yaw), (thro + yaw)); // Send values to FlyWithWiresA
+    flyWithWiresA(((-1 * thro) + yaw), (-1 * thro - yaw)); // Send values to FlyWithWiresA
   }
 
   /**
@@ -98,7 +99,11 @@ public class Drivetrain extends Subsystem {
    * @author Joe
    */
   public static void flyWithWiresA(double starboardSpeed, double portSpeed){
+    SmartDashboard.putNumber("Starboard Velocity Control", starboardSpeed);
+    SmartDashboard.putNumber("Port Velocity Control", portSpeed);
     starboardMotor.set(ControlMode.Velocity, (starboardSpeed * Constants.ticksPerMeter) / 10);  // Number of ticks per 
+    SmartDashboard.putNumber("Target(starboard)", (starboardSpeed * Constants.ticksPerMeter) / 10);
+    SmartDashboard.putNumber("Error", (starboardMotor.getClosedLoopError()));
     portMotor.set(ControlMode.Velocity, (portSpeed * Constants.ticksPerMeter) / 10);  // Set to the target speed
   }
 

@@ -155,8 +155,8 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     Telemetry.debug();
     // Testing
-    //Drivetrain.flyWithWiresB(0.1, 0.1);
-    Drivetrain.flyWithWiresA(0.2, 0.2);
+    //Drivetrain.flyWithWiresB(1, 1);
+    Drivetrain.flyWithWiresA(1, 1);
 
     // Saftey
     ROS.spin_RSL(1); // Spin the saftey light
