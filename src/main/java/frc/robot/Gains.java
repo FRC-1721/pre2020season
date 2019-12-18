@@ -1,5 +1,8 @@
 package frc.robot;
 
+/**
+ * @author Josh
+ */
 public class Gains {
 	public final double kP; //PID Values
 	public final double kI;

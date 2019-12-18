@@ -64,8 +64,8 @@ public class ROS_FullAuto extends Command {
     if(RobotMap.CommandTimer.get() > RobotMap.ROSTimeout){ // If we've been waiting for over 8 seconds
       coprocessorPort.setDouble(0); // Reset the values back to 0
       coprocessorStarboard.setDouble(0);
-      SmartDashboard.putString("timeout", "yes");
     }
+    SmartDashboard.putNumber("timeout", RobotMap.CommandTimer.get());
     watchdog = starboard + port; // This value will hold the previous command
   }
 

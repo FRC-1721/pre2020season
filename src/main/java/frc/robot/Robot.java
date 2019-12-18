@@ -12,13 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.FBWA;
-import frc.robot.commands.FBWB;
-import frc.robot.commands.ROS_FullAuto;
-import frc.robot.commands.ResetDrivetrainEncoders;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ROS;
-import frc.robot.subsystems.Telemetry;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -102,7 +97,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run(); // Honestly i have no idea what this line does
+    Scheduler.getInstance().run(); // Update all commands during disabled
   }
 
   /**
@@ -112,7 +107,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    robot_autonomous = autoChooser.getSelected();
+    robot_autonomous = autoChooser.getSelected(); // Get the currently selected autonomous
 
     // schedule the autonomous command
     if (robot_autonomous != null) {
@@ -125,7 +120,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+    Scheduler.getInstance().run(); // Run all commands during autonomous
   }
 
   /**
@@ -133,7 +128,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-    handling_mode = handlingChooser.getSelected();
+    handling_mode = handlingChooser.getSelected(); // Get the currently selected handling mode
   }
 
   /**
@@ -141,10 +136,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+    Scheduler.getInstance().run(); // Run all commands during teleop
 
-    if (Drivetrain.operatorIsOveride(RobotMap.driverStick)){ // If the operator takes control of the stick
-      handling_mode.start(); // Start the arcade drive command
+    if (Drivetrain.operatorIsOveride(RobotMap.driverStick)) { // If the operator takes control of the stick
+      handling_mode.start(); // Start the arcade drive command (Will inturrupt autonomous)
     }
   }
 
