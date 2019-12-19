@@ -45,13 +45,13 @@ public class Drivetrain extends Subsystem {
     starboardMotor.setSensorPhase(false);
     
     // PID Values
-    starboardMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs);
+    starboardMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs); // (loop index), (k*), (timeout)
     starboardMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains.kI, Constants.kTimeoutMs);
     starboardMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains.kD, Constants.kTimeoutMs);
     starboardMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains.kF, Constants.kTimeoutMs);
     starboardMotor.config_IntegralZone(Constants.kPIDLoopIdx, Constants.kGains.kIzone, Constants.kTimeoutMs);
 
-    portMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs);
+    portMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs); // (loop index), (k*), (timeout)
     portMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains.kI, Constants.kTimeoutMs);
     portMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains.kD, Constants.kTimeoutMs);
     portMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains.kF, Constants.kTimeoutMs);
@@ -71,6 +71,10 @@ public class Drivetrain extends Subsystem {
   public static void flyByWireA(Joystick DriverJoystick){
     double thro = DriverJoystick.getRawAxis(RobotMap.driverStick_throaxis); // Populate thro with axis 1
     double yaw = DriverJoystick.getRawAxis(RobotMap.driverStick_yawaxis); // Populate with with axis 2
+
+    // Debug
+    SmartDashboard.putNumber("Starboard Output", (-1 * thro) + yaw);
+    SmartDashboard.putNumber("Starboard Speed", starboardMotor.getSelectedSensorVelocity());
 
     starboardMotor.set(ControlMode.PercentOutput, (-1 * thro) + yaw);  // From the inverse of thro, subtract yaw
     portMotor.set(ControlMode.PercentOutput, (thro + yaw) * -1);  // subtract yaw from thro

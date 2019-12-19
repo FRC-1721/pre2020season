@@ -26,5 +26,5 @@ public class Constants {
     
     // PID Gains
     public static float kfCalculation = (1.0f * 1023.0f) / 3000.0f; // (<optimal output speed> * 1023) / measured velocity
-    public static final Gains kGains = new Gains(0.125, 0, 0, kfCalculation, 0, 1.0); // P, I, D, F, Zone, Peak output
+    public static final Gains kGains = new Gains(0, 0, 0, kfCalculation, 0, 1.0); // P, I, D, F, Zone, Peak output
 }
