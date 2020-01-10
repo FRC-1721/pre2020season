@@ -7,41 +7,53 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ResetDrivetrainEncoders;
+import frc.robot.commands.sing;
 
 /**
  * Telemetry is used for delivering data to the drivestation
  */
 public class Telemetry extends Subsystem {
+  private static Notifier telemetry_notifier;
 
-  public Telemetry() {
+  public void init() {
+    // Notifier
+    telemetry_notifier = new Notifier(Telemetry::update); // Create a notifier that will update the update command in package Telemetry
+    telemetry_notifier.startPeriodic(0.2); // Start a notifier witch will run telemetry every 0.02 seconds
+
     // Drivetrain
     SmartDashboard.putData("Reset Encoders", new ResetDrivetrainEncoders());
+
+    //Other
+    SmartDashboard.putData("Sing", new sing());
   }
 
-  public void update() {
+  public static void update() {
     // Drivetrain
     SmartDashboard.putNumber("Port Encoder Count", Robot.drivetrain.getDriveEncoderPort()); // Put the encpoder values on the board
     SmartDashboard.putNumber("Starboard Encoder Count", Robot.drivetrain.getDriveEncoderStarboard());
     SmartDashboard.putNumber("Speed", Robot.drivetrain.getOverallSpeed());
+  }
 
-    // ROS in
-    SmartDashboard.putNumber("ROS Current X Pos",(RobotMap.rosTable.getEntry("robotX")).getDouble(-1)); // The nesting here is a little funny but we're getting an entry in the table and then from that table we are getting a double.
-    SmartDashboard.putNumber("ROS Current Y Pos",(RobotMap.rosTable.getEntry("robotY")).getDouble(-1));
+  /**
+   * Put things to be displayed during debug here
+   */
+  public static void debug() {
+    // Debug
+    SmartDashboard.putBoolean("Is Overide", Drivetrain.operatorIsOveride(RobotMap.driverStick));
+    SmartDashboard.putNumber("Driver Thro", (RobotMap.driverStick.getRawAxis(RobotMap.driverStick_throaxis) * -1 ));
+  }
 
-    // ROS out
-    RobotMap.starboardEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderStarboard());
-    RobotMap.portEncoderEntry.setDouble(Robot.drivetrain.getDriveEncoderPort());
-
-    // Legacy ROS
-    SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
-    SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
-
-    //System.out.println("Ran Telemetry.update"); // This is only for debugging!
+/**
+ * Call this function to publish an alert to the drivestation
+ */
+  public static void alert(String message) {
+    SmartDashboard.putString("alert", message); // Publish whatever string is passed to key "alert"
   }
 
   @Override

@@ -8,26 +8,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.subsystems.Telemetry;
 
 /**
- * Resets the drivetrain encoders back to 0
+ * The sing command
+ * @author Joe
  */
-public class ResetDrivetrainEncoders extends InstantCommand {
+public class sing extends InstantCommand {
   /**
-   * Resets the drivetrain encoders back to 0
+   * Run this to make the robot sing
+   * @author Joe
    */
-  public ResetDrivetrainEncoders() {
+  public sing() {
     super();
-    requires(Robot.drivetrain);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Telemetry.alert("Resetting encoders");
-    Robot.drivetrain.zeroEncoders();
+    Telemetry.alert(RobotMap.daisy); // Pass daisy to alert
   }
 
 }

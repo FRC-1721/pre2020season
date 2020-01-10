@@ -7,22 +7,13 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.ROS_FullAuto;
-import frc.robot.commands.ResetDrivetrainEncoders;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Telemetry;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,20 +24,25 @@ import frc.robot.subsystems.Telemetry;
  */
 public class Robot extends TimedRobot {
   // Subsystems
-  public static Drivetrain drivetrain = new Drivetrain();
-  public static Telemetry telemetry = new Telemetry();
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Telemetry telemetry = new Telemetry();
+  public static final ROS ros = new ROS();
 
   // Commands
-  public static ArcadeDrive arcadeDrive = new ArcadeDrive();
+  public static FBWA FBWA = new FBWA();
+  public static FBWB FBWB = new FBWB();
   public static ROS_FullAuto ros_FullAuto = new ROS_FullAuto();
   public static ResetDrivetrainEncoders resetDrivetrainEncoders = new ResetDrivetrainEncoders();
 
   // OI
   public static OI m_oi;
 
+  // Selectors
+  Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
+  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
 
-  Command robot_autonomous; // Autonomous
-  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what auto we want to use
+  Command handling_mode; // Command object, will be populated by handling chooser
+  SendableChooser<Command> handlingChooser = new SendableChooser<>(); // Create a new chooser for holding the handling mode
 
   /**
    * This function is run when the robot is first started up and should be
@@ -54,47 +50,31 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Subsystems
+    drivetrain.init(); // Init Drivetrain
+    ros.init(); // Init ROS
+    telemetry.init(); // Init telemetry
+
     // Define SmartDashboard widgets
     autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
 
-    // Setup networkTables
-    RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
-    RobotMap.rosTable = RobotMap.networkTableInst.getTable(RobotMap.rosTablename); // Get the table ros
-    RobotMap.starboardEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.starboardEncoderName); // Get the writable entries
-    RobotMap.portEncoderEntry = RobotMap.rosTable.getEntry(RobotMap.portEncoderName);
-
-    // Define IO
-    RobotMap.lapis_boot = new DigitalOutput(RobotMap.lapis_dio_port);
+    handlingChooser.setDefaultOption("FBWA", new FBWA());
+    handlingChooser.addOption("FBWB (FWW)", new FBWB());
+    SmartDashboard.putData("Handling Mode", handlingChooser);
 
     // Define OI
     m_oi = new OI();  
-
-    // Define Joysticks
-    RobotMap.driverStick = new Joystick(RobotMap.driverStick_Port); // Define the joystick and attach its port to the joystick object in RobotMap
-
-    // Define motors
-    RobotMap.starboardMotor = new TalonSRX(RobotMap.starboardAddress); // Define starboard motor and attach its address to the TalonSRX object in RobotMap
-    RobotMap.portMotor = new TalonSRX(RobotMap.portAddress); // Define port motor
-
-    // Boot the coprossesor
-    RobotMap.lapis_boot.set(true); // Turn the power on
-    Timer.delay(0.5);
-    RobotMap.lapis_boot.set(false); // Turn the power off
   }
 
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
    * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
-    Robot.telemetry.update();
   }
 
   /**
@@ -104,35 +84,30 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    arcadeDrive.cancel(); // Stop the arcade drive command
+    // Send alert
+    Telemetry.alert("Robot disabled");
+
+    // Cancel running commands
+    FBWA.cancel(); // Stop the arcade drive command
+    //robot_autonomous.cancel(); // Stops the current running autonomous if it was running
+
+    // Saftey
+    ROS.spin_RSL(0); // stop the saftey light
   }
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run(); // Honestly i have no idea what this line does
+    Scheduler.getInstance().run(); // Update all commands during disabled
   }
 
   /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
+   * Runs only once when autonomous starts
+   * Retreives the current selected auto only
+   * when autonomousInit starts
    */
   @Override
   public void autonomousInit() {
-    robot_autonomous = autoChooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
+    robot_autonomous = autoChooser.getSelected(); // Get the currently selected autonomous
 
     // schedule the autonomous command
     if (robot_autonomous != null) {
@@ -145,16 +120,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+    Scheduler.getInstance().run(); // Run all commands during autonomous
   }
 
+  /**
+   * Runs once when teleop starts
+   */
   @Override
   public void teleopInit() {
-    if (robot_autonomous != null) { // Stops autonomous
-      robot_autonomous.cancel();
-    }
-    
-    arcadeDrive.start(); // Start the arcade drive command
+    handling_mode = handlingChooser.getSelected(); // Get the currently selected handling mode
   }
 
   /**
@@ -162,7 +136,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+    Scheduler.getInstance().run(); // Run all commands during teleop
+
+    if (Drivetrain.operatorIsOveride(RobotMap.driverStick)) { // If the operator takes control of the stick
+      handling_mode.start(); // Start the arcade drive command (Will inturrupt autonomous)
+    }
   }
 
   /**
@@ -170,8 +148,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    // Drivetrain
-    SmartDashboard.putNumber("Port", RobotMap.portMotor.getSelectedSensorPosition()); // Put the encpoder values on the board
-    SmartDashboard.putNumber("Starboard", RobotMap.starboardMotor.getSelectedSensorPosition());
+    Telemetry.debug();
+    // Testing
+    //Drivetrain.flyWithWiresB(1, 1);
+    Drivetrain.flyWithWiresA(1, 1);
+
+    // Saftey
+    ROS.spin_RSL(1); // Spin the saftey light
   }
 }
