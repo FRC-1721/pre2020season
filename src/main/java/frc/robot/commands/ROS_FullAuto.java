@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -30,7 +29,6 @@ public class ROS_FullAuto extends Command {
   NetworkTableEntry coprocessorPort; // For tank drive
   NetworkTableEntry coprocessorStarboard;
   NetworkTableEntry rosTime; // Is ros time (slow estimate)
-  double watchdog = 0;
 
   public ROS_FullAuto() {
     requires(Robot.drivetrain);
@@ -40,7 +38,6 @@ public class ROS_FullAuto extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    RobotMap.CommandTimer = new Timer();
     // Define ROS vars
     //robotX = RobotMap.rosTable.getEntry("robotX");
     //robotY = RobotMap.rosTable.getEntry("robotY");
@@ -57,16 +54,7 @@ public class ROS_FullAuto extends Command {
   protected void execute() {
     double starboard = coprocessorStarboard.getDouble(0);
     double port = coprocessorPort.getDouble(0);
-    Drivetrain.flyWithWiresA(starboard, port);
-    if(watchdog != (starboard + port)){ // Is the command stale?
-      RobotMap.CommandTimer.reset(); // Reset the timer to 0
-    }
-    if(RobotMap.CommandTimer.get() > RobotMap.ROSTimeout){ // If we've been waiting for over 8 seconds
-      coprocessorPort.setDouble(0); // Reset the values back to 0
-      coprocessorStarboard.setDouble(0);
-    }
-    SmartDashboard.putNumber("timeout", RobotMap.CommandTimer.get());
-    watchdog = starboard + port; // This value will hold the previous command
+    Drivetrain.flyWithWiresB(starboard, port);
   }
 
   // Make this return true when this Command no longer needs to run execute()

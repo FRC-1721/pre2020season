@@ -58,7 +58,9 @@ public class ROS extends Subsystem {
     lapis_boot.set(false); // Turn the power off
 
     // Network tables
-    RobotMap.networkTableInst = NetworkTableInstance.getDefault(); // Get the default instance of network tables on the rio
+    RobotMap.networkTableInst = NetworkTableInstance.create(); // Get the default instance of network tables on the rio
+    RobotMap.networkTableInst.startServer("ros.ini", "10.17.21.2", 5800);
+    RobotMap.networkTableInst.setUpdateRate(Constants.rosUpdateFrequency); // Crank that solja boy
     RobotMap.rosTable = RobotMap.networkTableInst.getTable(Constants.rosTablename); // Get the table ros
     starboardEncoderEntry = RobotMap.rosTable.getEntry(Constants.starboardEncoderName); // Get the writable entries
     portEncoderEntry = RobotMap.rosTable.getEntry(Constants.portEncoderName);
@@ -66,7 +68,7 @@ public class ROS extends Subsystem {
 
     // Notifier
     ros_notifier = new Notifier(ROS::update); // Set the ros_notifer to update the command update, in the package ros
-    ros_notifier.startPeriodic(0.05); // Start the ros notifer
+    ros_notifier.startPeriodic(Constants.rosUpdateFrequency); // Start the ros notifer
   }
 
   /**
@@ -92,8 +94,8 @@ public class ROS extends Subsystem {
     rosIndex.setNumber(rosIntex);
 
     // Legacy ROS
-    SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
-    SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
+    //SmartDashboard.putNumber("Port", Robot.drivetrain.getDriveEncoderPort());
+    //SmartDashboard.putNumber("Starboard", Robot.drivetrain.getDriveEncoderStarboard());
 
     // Increase the Index value
     rosIntex = rosIntex + 1;

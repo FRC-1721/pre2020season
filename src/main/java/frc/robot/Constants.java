@@ -6,6 +6,7 @@ package frc.robot;
 public class Constants {
     // ROS other data
     public static double rosUpdateFrequency = 0.02;
+    public static int encoderSpeed = 10;
     // ROS Name Data
     public static String rosTablename = "ROS"; // The string name of the table
     public static String starboardEncoderName = "Starboard";

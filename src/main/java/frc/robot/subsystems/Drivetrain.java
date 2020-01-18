@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -43,6 +44,9 @@ public class Drivetrain extends Subsystem {
     // Phase
     portMotor.setSensorPhase(true);
     starboardMotor.setSensorPhase(false);
+
+    portMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, Constants.encoderSpeed);
+    starboardMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, Constants.encoderSpeed);
     
     // PID Values
     starboardMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs); // (loop index), (k*), (timeout)
@@ -116,8 +120,8 @@ public class Drivetrain extends Subsystem {
    * @author Joe
    */
   public static void flyWithWiresB(double starboardSpeed, double portSpeed){
-    starboardMotor.set(ControlMode.PercentOutput, starboardSpeed);  // Set to the target speed
-    portMotor.set(ControlMode.PercentOutput, portSpeed);  // Set to the target speed
+    starboardMotor.set(ControlMode.PercentOutput, starboardSpeed / 2);  // Set to the target speed
+    portMotor.set(ControlMode.PercentOutput, portSpeed / 2);  // Set to the target speed
   }
 
   /**
